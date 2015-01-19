@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.EntityCreationPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

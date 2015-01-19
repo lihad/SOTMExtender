@@ -7,6 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import lihad.SOTMExtender.GUI.CloseGamePane.CloseGamePane;
+import lihad.SOTMExtender.GUI.EntityCreationPane.EnvironmentCreationPane;
+import lihad.SOTMExtender.GUI.EntityCreationPane.HeroCreationPane;
+import lihad.SOTMExtender.GUI.EntityCreationPane.PlayerCreationPane;
+import lihad.SOTMExtender.GUI.EntityCreationPane.VillianCreationPane;
+import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
+
 public class Interface extends JFrame{
 
 	private static final long serialVersionUID = 5228372618960861427L;

@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.Renders;
 
 import java.awt.Component;
 

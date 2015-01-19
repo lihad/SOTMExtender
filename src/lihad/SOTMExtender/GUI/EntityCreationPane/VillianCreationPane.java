@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.EntityCreationPane;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -12,7 +12,7 @@ public class VillianCreationPane extends CreationPane{
 	private JCheckBox toggle;
 	protected JTextField health;
 	
-	VillianCreationPane() {
+	public VillianCreationPane() {
 		super(CreationPaneType.VILLIAN);
 		
 		JPanel v_pane = new JPanel();

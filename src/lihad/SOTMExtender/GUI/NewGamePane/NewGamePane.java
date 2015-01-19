@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.NewGamePane;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import lihad.SOTMExtender.Extender;
+import lihad.SOTMExtender.GUI.Renders.PlayerComboRender;
 import lihad.SOTMExtender.Objects.DifficultyType;
 import lihad.SOTMExtender.Objects.Game;
 import lihad.SOTMExtender.Objects.Player;
@@ -29,7 +30,7 @@ public class NewGamePane extends JPanel implements ActionListener{
 	private JComboBox<DifficultyType> difficulty_combo;
 	private JPanel combo_pane, grid_pane;
 
-	NewGamePane(){
+	public NewGamePane(){
 		super(new BorderLayout());
 
 		grid_pane = new JPanel();

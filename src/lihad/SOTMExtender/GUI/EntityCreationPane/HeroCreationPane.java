@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.EntityCreationPane;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

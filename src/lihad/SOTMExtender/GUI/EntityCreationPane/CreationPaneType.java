@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.EntityCreationPane;
 
 public enum CreationPaneType {
 	HERO, VILLIAN, ENVIRONMENT, PLAYER

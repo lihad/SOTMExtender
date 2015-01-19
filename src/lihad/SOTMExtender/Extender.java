@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ public class Extender {
 	private static Set<Environment> environments;
 	private static Set<Game> games;
 	
-	private static final double build = 1;
+	private static final double build = 2;
 	
 	private static int base_experience = 1000; //TODO: make this configurable
 
@@ -94,6 +95,8 @@ public class Extender {
 					else if(object instanceof Player && filetype.equalsIgnoreCase("smp")){ players.add((Player) object);}
 					else if(object instanceof Game && filetype.equalsIgnoreCase("smg")){ games.add((Game) object);}
 					in.close();
+				} catch (InvalidObjectException ioe) {
+					logger.severe(Extender.class, "["+f.getName()+"] is corrupt. "+ioe.toString());
 				} catch (Exception ex) {
 					logger.error(Extender.class, ex.toString(), ex.getStackTrace());
 				}

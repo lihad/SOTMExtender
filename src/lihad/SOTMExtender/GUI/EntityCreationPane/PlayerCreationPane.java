@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.EntityCreationPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,7 +24,7 @@ public class PlayerCreationPane extends JPanel{
 	private JLabel notifysuccess;
 	protected JPanel east_pane, west_pane;
 	
-	PlayerCreationPane(){
+	public PlayerCreationPane(){
 		super(new BorderLayout());
 
 		setPreferredSize(new Dimension(100,100));

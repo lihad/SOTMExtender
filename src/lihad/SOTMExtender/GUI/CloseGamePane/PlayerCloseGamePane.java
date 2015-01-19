@@ -1,6 +1,7 @@
-package lihad.SOTMExtender.GUI;
+package lihad.SOTMExtender.GUI.CloseGamePane;
 
-import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,11 +16,10 @@ public class PlayerCloseGamePane extends JPanel{
 
 	private Player player;
 	private JCheckBox living;
-	private JTextField hp_end, dmg_dealt, dmg_mitigated, hp_res, kills;
+	private JTextField hp_end;
 
 	PlayerCloseGamePane(Game game, Player player){
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.player = player;
 		
 		this.add(new JLabel("player: "+this.player.getName()+" | hero: "+game.getHero(this.player).getName()));
@@ -32,22 +32,6 @@ public class PlayerCloseGamePane extends JPanel{
 		hp_end = new JTextField(3);
 		this.add(hp_end);
 
-		this.add(new JLabel("DMG Dealt: "));
-		dmg_dealt = new JTextField(3);
-		this.add(dmg_dealt);
-
-		this.add(new JLabel("DMG Mitigated: "));
-		dmg_mitigated = new JTextField(3);
-		this.add(dmg_mitigated);
-
-		this.add(new JLabel("HP Restored: "));
-		hp_res = new JTextField(3);
-		this.add(hp_res);
-
-		this.add(new JLabel("Kills: "));
-		kills = new JTextField(3);
-		this.add(kills);
-
 	}
 
 	public boolean isLiving(){
@@ -56,22 +40,6 @@ public class PlayerCloseGamePane extends JPanel{
 
 	public int getHP(){
 		return Integer.parseInt(this.hp_end.getText());
-	}
-
-	public int getDamageDealt(){
-		return Integer.parseInt(this.dmg_dealt.getText());
-	}
-
-	public int getDamageMitigated(){
-		return Integer.parseInt(this.dmg_mitigated.getText());
-	}
-
-	public int getHPRestored(){
-		return Integer.parseInt(this.hp_res.getText());
-	}
-	
-	public int getKills(){
-		return Integer.parseInt(this.kills.getText());
 	}
 	
 	public Player getPlayer(){

@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.Set;
 
 import lihad.SOTMExtender.Extender;
-import lihad.SOTMExtender.GUI.CloseGamePane;
 
 public class Game implements Serializable{
 	
@@ -45,7 +44,7 @@ public class Game implements Serializable{
 					environments.add(e);
 				}
 			}
-			if(environments.size() > 0)matchups.put(v, environments);
+			if(environments.size() > 0) matchups.put(v, environments);
 		}
 		
 		this.villian = matchups.keySet().toArray(new Villian[0])[new Random().nextInt(matchups.size())];
@@ -114,23 +113,4 @@ public class Game implements Serializable{
 		this.iscompleted = true;
 	}
 	
-	public void awardExperience(){
-		Extender.getLogger().info(Game.class, "awarding experience (base: "+getExperience()+")");
-
-		if(!isCompleted()){
-			Extender.getLogger().info(Game.class, "can not award experience if the game is not yet complete");
-			return;
-		}
-		for(Player p : this.getPlayers()){
-			int experience = 0;
-			experience = getExperience();
-			if(getCompletedGameData().getMVPs().contains(getHero(p)))experience += 50;
-			experience += new Random().nextInt(20);
-			if(!getCompletedGameData().isLiving(getHero(p))) experience = (int) (experience*.50);
-			if(!getCompletedGameData().isVictorious()) experience = (int) (experience*.15);
-			Extender.getLogger().info(Game.class, "__ "+p.getName()+" is awarded "+experience+" exp!");
-			p.addExperience(experience);
-			Extender.savePlayerData(p);
-		}
-	}
 }
