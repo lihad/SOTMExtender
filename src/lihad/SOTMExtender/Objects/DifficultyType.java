@@ -14,11 +14,13 @@ public enum DifficultyType{
 	
 	private int top, bottom;
 	private double exp_mod;
+	private String string;
 	
 	DifficultyType(String string, int bottom, int top, double exp_mod){
 		this.top = top;
 		this.bottom = bottom;
 		this.exp_mod = exp_mod;
+		this.string = string;
 	}
 
 	public int getTopRange(){
@@ -33,4 +35,7 @@ public enum DifficultyType{
 		return this.exp_mod;
 	}
 	
+	public String getTitle(){
+		return this.string;
+	}
 }

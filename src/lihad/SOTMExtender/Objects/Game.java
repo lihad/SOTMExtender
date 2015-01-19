@@ -100,6 +100,10 @@ public class Game implements Serializable{
 		return diff;
 	}
 	
+	public DifficultyType getDifficultyType(){
+		return this.d_type;
+	}
+	
 	public int getExperience(){
 		return (int) (Extender.getBaseExperience() * this.d_type.getExperienceModifier());
 	}

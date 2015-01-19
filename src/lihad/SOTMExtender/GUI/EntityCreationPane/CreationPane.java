@@ -26,6 +26,7 @@ import lihad.SOTMExtender.Objects.Entity;
 import lihad.SOTMExtender.Objects.Environment;
 import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Util.Utility;
 
 public class CreationPane extends JPanel{
 
@@ -71,7 +72,7 @@ public class CreationPane extends JPanel{
 					file = fc.getSelectedFile();
 					try {
 						if(image != null)east_pane.remove(image);
-						image = new JLabel(new ImageIcon(getScaledImage(ImageIO.read(file),190,285)));
+						image = new JLabel(new ImageIcon(Utility.getScaledImage(ImageIO.read(file),190,285)));
 						east_pane.add(image, BorderLayout.CENTER);
 						Extender.getGUI().pack();
 						CreationPane.this.repaint();
@@ -152,20 +153,6 @@ public class CreationPane extends JPanel{
 		this.setVisible(true);
 
 		repaint();
-	}
-
-	public static BufferedImage getScaledImage(BufferedImage image, int width, int height) throws IOException {
-		int imageWidth  = image.getWidth();
-		int imageHeight = image.getHeight();
-
-		double scaleX = (double)width/imageWidth;
-		double scaleY = (double)height/imageHeight;
-		AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
-		AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
-
-		return bilinearScaleOp.filter(
-				image,
-				new BufferedImage(width, height, image.getType()));
 	}
 
 	private void notifySuccessCreation(Entity entity){

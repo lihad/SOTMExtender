@@ -13,6 +13,7 @@ import lihad.SOTMExtender.GUI.EntityCreationPane.HeroCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.PlayerCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.VillianCreationPane;
 import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
+import lihad.SOTMExtender.GUI.ViewGamePane.ViewGamePane;
 
 public class Interface extends JFrame{
 
@@ -24,6 +25,7 @@ public class Interface extends JFrame{
 	private EnvironmentCreationPane environment_pane;
 	private PlayerCreationPane player_pane;
 	private CloseGamePane close_game_pane;
+	private ViewGamePane view_game_pane;
 	private NewGamePane new_game_pane;
 	
 	public Interface(){
@@ -53,9 +55,15 @@ public class Interface extends JFrame{
 	public void loadCloseGamePane(){
 		removeAllPanes();
 		close_game_pane = new CloseGamePane();
-		loadPaneCenter(close_game_pane);
+		loadPaneNorth(close_game_pane);
 	}
 
+	public void loadViewGamePane(){
+		removeAllPanes();
+		view_game_pane = new ViewGamePane();
+		loadPaneCenter(view_game_pane);
+	}
+	
 	public void loadPlayerCreationPane(){
 		removeAllPanes();
 		player_pane = new PlayerCreationPane();
@@ -86,6 +94,8 @@ public class Interface extends JFrame{
 		if(villian_pane != null)this.remove(villian_pane);
 		if(environment_pane != null)this.remove(environment_pane);
 		if(new_game_pane != null)this.remove(new_game_pane);
+		if(close_game_pane != null)this.remove(close_game_pane);
+		if(view_game_pane != null)this.remove(view_game_pane);
 	}
 	
 	private void loadPaneCenter(JPanel pane){
@@ -94,4 +104,9 @@ public class Interface extends JFrame{
 		this.repaint();
 	}
 
+	private void loadPaneNorth(JPanel pane){
+		this.add(pane, BorderLayout.NORTH);
+		this.pack();
+		this.repaint();
+	}
 }

@@ -15,7 +15,7 @@ public class GameComboRender extends JLabel implements ListCellRenderer<Game> {
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Game> arg0,
 			Game game, int arg2, boolean arg3, boolean arg4) {
-		if(game != null)this.setText(game.getTimestamp()+" ( Players: "+game.getPlayers().size()+" | Villian: "+game.getVillian().getName()+")");
+		if(game != null)this.setText(game.getTimestamp()+" ( Players: "+game.getPlayers().size()+" | Villian: "+game.getVillian().getName()+" | Environment: "+game.getEnvironment().getName()+")");
 		return this;
 	}
 

@@ -83,7 +83,7 @@ public class CompletedGameData implements Serializable{
 	}
 	
 	private int getScore(Hero h){
-		return ((100 * (this.getHitpointsAtEnd(h)/h.getHealth())));
+		return ((100 * this.getHitpointsAtEnd(h))/h.getHealth());
 	}
 	
 	public boolean isLiving(TableEntity entity){

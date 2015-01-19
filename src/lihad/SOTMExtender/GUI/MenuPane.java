@@ -16,7 +16,7 @@ public class MenuPane extends JMenuBar{
 	private static final long serialVersionUID = -7914187768188543191L;
 
 	private JMenu extender, game, create_menu;
-	private JMenuItem playerItem, heroItem, villianItem, environmentItem, exitItem, addGameItem, closeGameItem;
+	private JMenuItem playerItem, heroItem, villianItem, environmentItem, exitItem, addGameItem, closeGameItem, viewGameItem;
 
 	MenuPane(){
 
@@ -101,6 +101,18 @@ public class MenuPane extends JMenuBar{
 			}
 		});
 		game.add(closeGameItem);
+		
+		game.addSeparator();
+		
+		viewGameItem = new JMenuItem("View Game");
+		viewGameItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Extender.getGUI().loadViewGamePane();
+			}
+		});
+		game.add(viewGameItem);
+
 
 	}
 }

@@ -30,7 +30,7 @@ public class Extender {
 	private static Set<Environment> environments;
 	private static Set<Game> games;
 	
-	private static final double build = 2;
+	private static final double build = 3;
 	
 	private static int base_experience = 1000; //TODO: make this configurable
 
