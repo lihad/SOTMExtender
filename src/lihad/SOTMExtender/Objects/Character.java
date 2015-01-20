@@ -36,4 +36,8 @@ public class Character extends TableEntity{
 	public int getHealth(){
 		return this.health;
 	}
+	
+	public void setHealth(int health){
+		this.health = health;
+	}
 }

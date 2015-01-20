@@ -18,7 +18,7 @@ public class ViewGamePane extends JPanel{
 	private JComboBox<Game> game_combo;
 	private ViewGamePaneInformation view_info;
 
-	public ViewGamePane(){
+	public ViewGamePane(Game g){
 		this.setLayout(new BorderLayout());
 
 		game_combo = new JComboBox<Game>();
@@ -38,6 +38,7 @@ public class ViewGamePane extends JPanel{
 		this.add(game_combo, BorderLayout.NORTH);
 
 		if(game_combo.getItemCount() > 0){
+			if(g != null) game_combo.setSelectedItem(g);
 			loadViewPaneInformation(game_combo.getItemAt(game_combo.getSelectedIndex()));
 		}
 	}	

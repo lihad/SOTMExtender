@@ -18,6 +18,7 @@ import lihad.SOTMExtender.Objects.Environment;
 import lihad.SOTMExtender.Objects.Game;
 import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.Player;
+import lihad.SOTMExtender.Objects.TableEntity;
 import lihad.SOTMExtender.Objects.Villian;
 
 public class Extender {
@@ -30,7 +31,7 @@ public class Extender {
 	private static Set<Environment> environments;
 	private static Set<Game> games;
 	
-	private static final double build = 3;
+	private static final double build = 5;
 	
 	private static int base_experience = 1000; //TODO: make this configurable
 
@@ -151,6 +152,15 @@ public class Extender {
 	public static void saveHeroData(Hero hero){
 		saveData(hero, directory+"\\heroes\\"+hero.getName()+".smh");
 	}
+	
+	public static void saveTableEntityData(TableEntity tableentity){
+		if(tableentity instanceof Villian) saveVillianData((Villian) tableentity);
+		else if(tableentity instanceof Hero) saveHeroData((Hero) tableentity);
+		else if(tableentity instanceof Environment) saveEnvironmentData((Environment) tableentity);
+		else{
+			getLogger().severe(Extender.class, "a TableEntity was attempted to be saved, which is unrecognizable.  ignoring.  no data saved ["+tableentity.getName()+"]");
+		}
+	}
 
 	public static void saveEnvironmentData(Environment environment){
 		saveData(environment, directory+"\\environments\\"+environment.getName()+".sme");
@@ -164,7 +174,7 @@ public class Extender {
 		return villians;
 	}
 	
-	public static Set<Environment> getEnvironment(){
+	public static Set<Environment> getEnvironments(){
 		return environments;
 	}
 	

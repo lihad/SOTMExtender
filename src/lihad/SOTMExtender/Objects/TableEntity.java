@@ -34,5 +34,13 @@ public class TableEntity extends Entity{
 		}
 		return count;
 	}
+	
+	public void setDifficulty(int difficulty){
+		this.difficulty = difficulty;
+	}
+	
+	public void setImageFile(File image_file){
+		this.image_file = image_file;
+	}
 
 }

@@ -109,6 +109,7 @@ public class NewGamePane extends JPanel implements ActionListener{
 					Game game = new Game(players, difficulty_combo.getItemAt(difficulty_combo.getSelectedIndex()));
 					Extender.addGame(game);
 					Extender.saveGameData(game);
+					Extender.getGUI().loadCloseGamePane(game);
 				}catch(IllegalArgumentException e){
 					Extender.getLogger().warning(Game.class, "Bad hero set.  Game creation Cancelled.  Try Again.");
 				}

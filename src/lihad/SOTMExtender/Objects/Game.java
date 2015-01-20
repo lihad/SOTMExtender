@@ -39,7 +39,7 @@ public class Game implements Serializable{
 		Map<Villian, Set<Environment>> matchups =  new HashMap<Villian, Set<Environment>>();
 		for(Villian v : Extender.getVillians()){
 			Set<Environment> environments = new HashSet<Environment>();
-			for(Environment e : Extender.getEnvironment()){
+			for(Environment e : Extender.getEnvironments()){
 				if(d_type.getBottomRange() < v.getDifficulty() + e.getDifficulty() + built_dif && v.getDifficulty() + e.getDifficulty() + built_dif < d_type.getTopRange()){
 					environments.add(e);
 				}

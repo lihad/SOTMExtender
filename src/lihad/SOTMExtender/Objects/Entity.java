@@ -13,5 +13,9 @@ public class Entity implements Serializable{
 	public String getName(){
 		return this.name;
 	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
 
 }

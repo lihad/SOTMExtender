@@ -32,8 +32,6 @@ public class CompletedGameData implements Serializable{
 		entity_data = new HashMap<TableEntity, Map<CGDataType, Object>>();
 		for(Entry<TableEntity, Object[]> entry : tableentity_stats.entrySet()){
 			Map<CGDataType, Object> cg_map = new HashMap<CGDataType, Object>();
-			System.out.println("deep "+entry.getValue()[0]+" "+(Boolean)entry.getValue()[0]);
-			System.out.println("deep "+entry.getValue()[1]+" "+(Integer)entry.getValue()[1]);
 
 			cg_map.put(CGDataType.LIVING, (Boolean)entry.getValue()[0]);
 			if(!(boolean)entry.getValue()[0]) cg_map.put(CGDataType.HP_END, 0);

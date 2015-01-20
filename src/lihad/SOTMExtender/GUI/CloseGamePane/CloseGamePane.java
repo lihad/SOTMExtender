@@ -25,7 +25,7 @@ public class CloseGamePane extends JPanel{
 	
 	private CloseGamePaneInformation close_info;
 
-	public CloseGamePane(){
+	public CloseGamePane(Game g){
 		this.setLayout(new BorderLayout());
 		
 		game_combo = new JComboBox<Game>();
@@ -45,6 +45,7 @@ public class CloseGamePane extends JPanel{
 		this.add(game_combo, BorderLayout.NORTH);
 
 		if(game_combo.getItemCount() > 0){
+			if(g != null) game_combo.setSelectedItem(g);
 			loadClosePaneInformation(game_combo.getItemAt(game_combo.getSelectedIndex()));
 		}
 
@@ -60,7 +61,7 @@ public class CloseGamePane extends JPanel{
 
 				close_info.getGame().complete(close_info.getStatisticsPane().isVictorious(), close_info.getStatisticsPane().getRounds(), data_map);
 				Extender.saveGameData(close_info.getGame());
-				CloseGamePane.this.remove(CloseGamePane.this.button);
+				Extender.getGUI().loadViewGamePane(close_info.getGame());
 			}
 		});
 		this.add(button, BorderLayout.SOUTH);

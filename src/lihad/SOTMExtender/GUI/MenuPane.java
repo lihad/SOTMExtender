@@ -9,14 +9,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import lihad.SOTMExtender.Extender;
+import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPaneType;
+import lihad.SOTMExtender.Objects.Hero;
 
 public class MenuPane extends JMenuBar{
 
 
 	private static final long serialVersionUID = -7914187768188543191L;
 
-	private JMenu extender, game, create_menu;
-	private JMenuItem playerItem, heroItem, villianItem, environmentItem, exitItem, addGameItem, closeGameItem, viewGameItem;
+	private JMenu extender, game, create_menu, edit_menu;
+	private JMenuItem playerCreateItem, heroCreateItem, villianCreateItem, environmentCreateItem,
+	playerEditItem, heroEditItem, villianEditItem, environmentEditItem, exitItem, addGameItem, closeGameItem, viewGameItem;
 
 	MenuPane(){
 
@@ -28,45 +31,92 @@ public class MenuPane extends JMenuBar{
 		create_menu = new JMenu("Create ...");
 		create_menu.setMnemonic(KeyEvent.VK_C);
 
-		playerItem = new JMenuItem("Player");
-		playerItem.addActionListener(new ActionListener(){
+		playerCreateItem = new JMenuItem("Player");
+		playerCreateItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Extender.getGUI().loadPlayerCreationPane();
 			}
 		});
-		create_menu.add(playerItem);
+		create_menu.add(playerCreateItem);
 
 		create_menu.addSeparator();
 
-		heroItem = new JMenuItem("Hero");
-		heroItem.addActionListener(new ActionListener(){
+		heroCreateItem = new JMenuItem("Hero");
+		heroCreateItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Extender.getGUI().loadHeroCreationPane();
 			}
 		});
-		create_menu.add(heroItem);
+		create_menu.add(heroCreateItem);
 
-		villianItem = new JMenuItem("Villian");
-		villianItem.addActionListener(new ActionListener(){
+		villianCreateItem = new JMenuItem("Villian");
+		villianCreateItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Extender.getGUI().loadVillianCreationPane();
 			}
 		});
-		create_menu.add(villianItem);
+		create_menu.add(villianCreateItem);
 
-		environmentItem = new JMenuItem("Environment");
-		environmentItem.addActionListener(new ActionListener(){
+		environmentCreateItem = new JMenuItem("Environment");
+		environmentCreateItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Extender.getGUI().loadEnvironmentCreationPane();
 			}
 		});
-		create_menu.add(environmentItem);
+		create_menu.add(environmentCreateItem);
 
 		extender.add(create_menu);
+		
+		////////////////////////
+		
+		edit_menu = new JMenu("Edit ...");
+
+		playerEditItem = new JMenuItem("Player");
+		playerEditItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO: Extender.getGUI().loadPlayerEditPane();
+			}
+		});
+		edit_menu.add(playerEditItem);
+
+		edit_menu.addSeparator();
+
+		heroEditItem = new JMenuItem("Hero");
+		heroEditItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Extender.getGUI().loadTableEntityEditPane(TableEntityEditPaneType.HERO);
+			}
+		});
+		edit_menu.add(heroEditItem);
+
+		villianEditItem = new JMenuItem("Villian");
+		villianEditItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Extender.getGUI().loadTableEntityEditPane(TableEntityEditPaneType.VILLIAN);
+			}
+		});
+		edit_menu.add(villianEditItem);
+
+		environmentEditItem = new JMenuItem("Environment");
+		environmentEditItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Extender.getGUI().loadTableEntityEditPane(TableEntityEditPaneType.ENVIRONMENT);
+			}
+		});
+		edit_menu.add(environmentEditItem);
+
+		extender.add(edit_menu);
+		
+		
+		
 		extender.addSeparator();
 
 		exitItem = new JMenuItem("Exit");
@@ -97,7 +147,7 @@ public class MenuPane extends JMenuBar{
 		closeGameItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Extender.getGUI().loadCloseGamePane();
+				Extender.getGUI().loadCloseGamePane(null);
 			}
 		});
 		game.add(closeGameItem);
@@ -108,7 +158,7 @@ public class MenuPane extends JMenuBar{
 		viewGameItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Extender.getGUI().loadViewGamePane();
+				Extender.getGUI().loadViewGamePane(null);
 			}
 		});
 		game.add(viewGameItem);

@@ -16,4 +16,8 @@ public class Villian extends Character{
 	public boolean isAdvanced(){
 		return this.advanced;
 	}
+	
+	public void setAdvanced(boolean adv){
+		this.advanced = adv;
+	}
 }

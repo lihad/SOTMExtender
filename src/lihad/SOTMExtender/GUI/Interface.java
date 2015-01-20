@@ -13,7 +13,11 @@ import lihad.SOTMExtender.GUI.EntityCreationPane.HeroCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.PlayerCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.VillianCreationPane;
 import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
+import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPane;
+import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPaneType;
 import lihad.SOTMExtender.GUI.ViewGamePane.ViewGamePane;
+import lihad.SOTMExtender.Objects.Game;
+import lihad.SOTMExtender.Objects.TableEntity;
 
 public class Interface extends JFrame{
 
@@ -27,6 +31,7 @@ public class Interface extends JFrame{
 	private CloseGamePane close_game_pane;
 	private ViewGamePane view_game_pane;
 	private NewGamePane new_game_pane;
+	private TableEntityEditPane tableentity_edit_pane;
 	
 	public Interface(){
 		this.setSize(600,400);
@@ -52,15 +57,15 @@ public class Interface extends JFrame{
 		loadPaneCenter(new_game_pane);
 	}
 	
-	public void loadCloseGamePane(){
+	public void loadCloseGamePane(Game game){
 		removeAllPanes();
-		close_game_pane = new CloseGamePane();
+		close_game_pane = new CloseGamePane(game);
 		loadPaneCenter(close_game_pane);
 	}
 
-	public void loadViewGamePane(){
+	public void loadViewGamePane(Game game){
 		removeAllPanes();
-		view_game_pane = new ViewGamePane();
+		view_game_pane = new ViewGamePane(game);
 		loadPaneCenter(view_game_pane);
 	}
 	
@@ -88,6 +93,12 @@ public class Interface extends JFrame{
 		loadPaneCenter(environment_pane);
 	}
 	
+	public void loadTableEntityEditPane(TableEntityEditPaneType type){
+		removeAllPanes();
+		tableentity_edit_pane = new TableEntityEditPane(type);
+		loadPaneCenter(tableentity_edit_pane);
+	}
+	
 	public void removeAllPanes(){
 		if(player_pane != null)this.remove(player_pane);
 		if(hero_pane != null)this.remove(hero_pane);
@@ -96,6 +107,7 @@ public class Interface extends JFrame{
 		if(new_game_pane != null)this.remove(new_game_pane);
 		if(close_game_pane != null)this.remove(close_game_pane);
 		if(view_game_pane != null)this.remove(view_game_pane);
+		if(tableentity_edit_pane != null)this.remove(tableentity_edit_pane);
 	}
 	
 	private void loadPaneCenter(JPanel pane){
