@@ -46,6 +46,8 @@ public class ViewGamePane extends JPanel{
 		if(view_info != null)this.remove(view_info);
 		view_info = new ViewGamePaneInformation(game);
 		this.add(view_info, BorderLayout.CENTER);
+		Extender.getGUI().pack();
+		this.repaint();
 	}
 
 }

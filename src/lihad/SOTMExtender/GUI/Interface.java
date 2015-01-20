@@ -55,7 +55,7 @@ public class Interface extends JFrame{
 	public void loadCloseGamePane(){
 		removeAllPanes();
 		close_game_pane = new CloseGamePane();
-		loadPaneNorth(close_game_pane);
+		loadPaneCenter(close_game_pane);
 	}
 
 	public void loadViewGamePane(){
@@ -100,12 +100,6 @@ public class Interface extends JFrame{
 	
 	private void loadPaneCenter(JPanel pane){
 		this.add(pane, BorderLayout.CENTER);
-		this.pack();
-		this.repaint();
-	}
-
-	private void loadPaneNorth(JPanel pane){
-		this.add(pane, BorderLayout.NORTH);
 		this.pack();
 		this.repaint();
 	}
