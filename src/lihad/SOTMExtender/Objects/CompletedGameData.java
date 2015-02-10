@@ -34,13 +34,14 @@ public class CompletedGameData implements Serializable{
 			Map<CGDataType, Object> cg_map = new HashMap<CGDataType, Object>();
 
 			cg_map.put(CGDataType.LIVING, (Boolean)entry.getValue()[0]);
-			if(!(boolean)entry.getValue()[0]) cg_map.put(CGDataType.HP_END, 0);
+			if(!(Boolean)entry.getValue()[0]) cg_map.put(CGDataType.HP_END, 0);
 			else cg_map.put(CGDataType.HP_END, (Integer)entry.getValue()[1]);
 			
 			entity_data.put(entry.getKey(), cg_map);
 			
 			
-		}		
+		}
+		adjustDifficulty();
 		awardExperience();
 	}
 	
@@ -59,7 +60,7 @@ public class CompletedGameData implements Serializable{
 
 	public int getHitpointsAtEnd(TableEntity entity){
 		if(!hasDataType(entity, CGDataType.HP_END)) return -1;
-		return (int) this.entity_data.get(entity).get(CGDataType.HP_END);
+		return (Integer) this.entity_data.get(entity).get(CGDataType.HP_END);
 	}
 	
 	public Set<Hero> getMVPs(){
@@ -86,7 +87,7 @@ public class CompletedGameData implements Serializable{
 	
 	public boolean isLiving(TableEntity entity){
 		if(!hasDataType(entity, CGDataType.LIVING)) return false;
-		return (boolean) this.entity_data.get(entity).get(CGDataType.LIVING);
+		return (Boolean) this.entity_data.get(entity).get(CGDataType.LIVING);
 	}
 	
 	private void awardExperience(){
@@ -100,8 +101,26 @@ public class CompletedGameData implements Serializable{
 			if(!this.isLiving(this.game.getHero(p))) experience = (int) (experience*.50);
 			if(!this.isVictorious()) experience = (int) (experience*.15);
 			Extender.getLogger().info(Game.class, "__ "+p.getName()+" is awarded ["+experience+"] exp!");
-			p.addExperience(experience);
+			p.addExperience(game.getHero(p), experience);
 			Extender.savePlayerData(p);
 		}
+	}
+	
+	private void adjustDifficulty(){
+		//TODO: make this more complex
+		Extender.getLogger().info(Game.class, "adjusting difficulty");
+		int i = (this.isVictorious() ? -1 : 1);
+		
+		for(Player p : this.game.getPlayers()){
+			this.game.getHero(p).setDifficulty(i+this.game.getHero(p).getDifficulty());
+			Extender.getLogger().info(Game.class, " - hero "+this.game.getHero(p).getName()+"'s difficulty is now ["+this.game.getHero(p).getDifficulty()+"] ["+i+"]");
+		}
+		
+		i = -i;
+		
+		this.game.getVillain().setDifficulty(i+this.game.getVillain().getDifficulty());
+		Extender.getLogger().info(Game.class, " - villain "+this.game.getVillain().getName()+"'s difficulty is now ["+this.game.getVillain().getDifficulty()+"] ["+i+"]");
+
+		
 	}
 }

@@ -3,18 +3,14 @@ package lihad.SOTMExtender.GUI.TableEntityEditPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Extender;
-import lihad.SOTMExtender.GUI.CloseGamePane.CloseGamePaneTableEntityCard;
 import lihad.SOTMExtender.Objects.TableEntity;
 import lihad.SOTMExtender.Objects.Character;
-import lihad.SOTMExtender.Objects.Villian;
 
 public class TableEntityEditPaneSave extends JPanel{
 
@@ -41,10 +37,6 @@ public class TableEntityEditPaneSave extends JPanel{
 				if(tableentity instanceof Character){
 					Character character = (Character) tableentity;
 					character.setHealth(pane.getStatisticsPane().getHealth());
-					if(character instanceof Villian){
-						Villian villian = (Villian) character;
-						villian.setAdvanced(pane.getStatisticsPane().isAdvanced());
-					}
 				}
 
 				Extender.saveTableEntityData(tableentity);

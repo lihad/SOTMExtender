@@ -4,23 +4,23 @@ import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Objects.Game;
 
-public class CloseGamePaneVillianLine extends JPanel{
+public class CloseGamePaneVillainLine extends JPanel{
 
 	private static final long serialVersionUID = 4522118005183264428L;
 	
-	private CloseGamePaneTableEntityCard villian_card, environment_card;
+	private CloseGamePaneTableEntityCard villain_card, environment_card;
 
-	CloseGamePaneVillianLine(Game game){
+	CloseGamePaneVillainLine(Game game){
 		
-		villian_card = new CloseGamePaneTableEntityCard(game.getVillian(), null);
+		villain_card = new CloseGamePaneTableEntityCard(game.getVillain(), null);
 		environment_card = new CloseGamePaneTableEntityCard(game.getEnvironment(), null);
 		
-		this.add(villian_card);
+		this.add(villain_card);
 		this.add(environment_card);
 	}
 	
-	public CloseGamePaneTableEntityCard getVillianCard(){
-		return this.villian_card;
+	public CloseGamePaneTableEntityCard getVillainCard(){
+		return this.villain_card;
 	}
 	
 	public CloseGamePaneTableEntityCard getEnvironmentCard(){

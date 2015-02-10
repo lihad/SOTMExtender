@@ -28,7 +28,7 @@ public class TableEntity extends Entity{
 	public int getTimesPlayed(){
 		int count = 0;
 		for(Game game : Extender.getGames()){
-			if(this instanceof Villian && game.getVillian().equals(this))  count++;
+			if(this instanceof Villain && game.getVillain().equals(this))  count++;
 			else if(this instanceof Hero && game.getHeroes().contains(this))  count++;
 			else if(this instanceof Environment && game.getEnvironment().equals(this))  count++;
 		}

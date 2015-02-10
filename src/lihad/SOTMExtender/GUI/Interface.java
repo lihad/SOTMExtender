@@ -11,7 +11,7 @@ import lihad.SOTMExtender.GUI.CloseGamePane.CloseGamePane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.EnvironmentCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.HeroCreationPane;
 import lihad.SOTMExtender.GUI.EntityCreationPane.PlayerCreationPane;
-import lihad.SOTMExtender.GUI.EntityCreationPane.VillianCreationPane;
+import lihad.SOTMExtender.GUI.EntityCreationPane.VillainCreationPane;
 import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
 import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPane;
 import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPaneType;
@@ -25,7 +25,7 @@ public class Interface extends JFrame{
 	
 	private MenuPane menu_pane;
 	private HeroCreationPane hero_pane;
-	private VillianCreationPane villian_pane;
+	private VillainCreationPane villain_pane;
 	private EnvironmentCreationPane environment_pane;
 	private PlayerCreationPane player_pane;
 	private CloseGamePane close_game_pane;
@@ -81,10 +81,10 @@ public class Interface extends JFrame{
 		loadPaneCenter(hero_pane);
 	}
 	
-	public void loadVillianCreationPane(){
+	public void loadVillainCreationPane(){
 		removeAllPanes();
-		villian_pane = new VillianCreationPane();
-		loadPaneCenter(villian_pane);
+		villain_pane = new VillainCreationPane();
+		loadPaneCenter(villain_pane);
 	}
 	
 	public void loadEnvironmentCreationPane(){
@@ -102,7 +102,7 @@ public class Interface extends JFrame{
 	public void removeAllPanes(){
 		if(player_pane != null)this.remove(player_pane);
 		if(hero_pane != null)this.remove(hero_pane);
-		if(villian_pane != null)this.remove(villian_pane);
+		if(villain_pane != null)this.remove(villain_pane);
 		if(environment_pane != null)this.remove(environment_pane);
 		if(new_game_pane != null)this.remove(new_game_pane);
 		if(close_game_pane != null)this.remove(close_game_pane);

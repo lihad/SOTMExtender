@@ -1,11 +1,9 @@
 package lihad.SOTMExtender.GUI.CloseGamePane;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Objects.Game;

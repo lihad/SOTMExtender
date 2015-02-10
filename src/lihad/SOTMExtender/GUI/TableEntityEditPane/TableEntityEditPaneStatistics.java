@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 import lihad.SOTMExtender.Objects.TableEntity;
 import lihad.SOTMExtender.Objects.Character;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 
 public class TableEntityEditPaneStatistics extends JPanel{
 
@@ -64,10 +64,6 @@ public class TableEntityEditPaneStatistics extends JPanel{
 
 	public int getHealth(){
 		return Integer.parseInt(this.health_field.getText());
-	}
-
-	public boolean isAdvanced(){
-		return this.advanced_box.isSelected();
 	}
 
 }

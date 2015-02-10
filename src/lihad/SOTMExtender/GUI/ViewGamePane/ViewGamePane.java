@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Extender;
+import lihad.SOTMExtender.GUI.ComboBoxModels.GameModel;
 import lihad.SOTMExtender.GUI.Renders.GameComboRender;
 import lihad.SOTMExtender.Objects.Game;
 
@@ -23,6 +24,7 @@ public class ViewGamePane extends JPanel{
 
 		game_combo = new JComboBox<Game>();
 		game_combo.setRenderer(new GameComboRender());
+		game_combo.setModel(new GameModel());
 
 		for(Game game : Extender.getGames()){
 			if(game.isCompleted()) game_combo.addItem(game);

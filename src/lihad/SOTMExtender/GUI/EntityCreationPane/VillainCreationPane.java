@@ -5,15 +5,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class VillianCreationPane extends CreationPane{
+public class VillainCreationPane extends CreationPane{
 
 	private static final long serialVersionUID = -2234961254579140779L;
 	
 	private JCheckBox toggle;
 	protected JTextField health;
 	
-	public VillianCreationPane() {
-		super(CreationPaneType.VILLIAN);
+	public VillainCreationPane() {
+		super(CreationPaneType.VILLAIN);
 		
 		JPanel v_pane = new JPanel();
 		

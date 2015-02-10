@@ -11,7 +11,7 @@ public class CloseGamePaneInformation extends JPanel{
 	private static final long serialVersionUID = 163452145232119486L;
 	
 	private CloseGamePanePlayerLine cgppl;
-	private CloseGamePaneVillianLine cgpvl;
+	private CloseGamePaneVillainLine cgpvl;
 	private CloseGamePaneStatistics cgps;
 	private Game game;
 	
@@ -21,7 +21,7 @@ public class CloseGamePaneInformation extends JPanel{
 		this.game = game;
 		
 		cgppl = new CloseGamePanePlayerLine(game);
-		cgpvl = new CloseGamePaneVillianLine(game);
+		cgpvl = new CloseGamePaneVillainLine(game);
 		cgps = new CloseGamePaneStatistics(game);
 		
 		this.add(cgppl, BorderLayout.CENTER);
@@ -33,7 +33,7 @@ public class CloseGamePaneInformation extends JPanel{
 		return this.cgppl;
 	}
 	
-	public CloseGamePaneVillianLine getVillianLine(){
+	public CloseGamePaneVillainLine getVillainLine(){
 		return this.cgpvl;
 	}
 	

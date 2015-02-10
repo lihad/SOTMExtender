@@ -18,8 +18,8 @@ public class MenuPane extends JMenuBar{
 	private static final long serialVersionUID = -7914187768188543191L;
 
 	private JMenu extender, game, create_menu, edit_menu;
-	private JMenuItem playerCreateItem, heroCreateItem, villianCreateItem, environmentCreateItem,
-	playerEditItem, heroEditItem, villianEditItem, environmentEditItem, exitItem, addGameItem, closeGameItem, viewGameItem;
+	private JMenuItem playerCreateItem, heroCreateItem, villainCreateItem, environmentCreateItem,
+	playerEditItem, heroEditItem, villainEditItem, environmentEditItem, exitItem, addGameItem, closeGameItem, viewGameItem;
 
 	MenuPane(){
 
@@ -51,14 +51,14 @@ public class MenuPane extends JMenuBar{
 		});
 		create_menu.add(heroCreateItem);
 
-		villianCreateItem = new JMenuItem("Villian");
-		villianCreateItem.addActionListener(new ActionListener(){
+		villainCreateItem = new JMenuItem("Villain");
+		villainCreateItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Extender.getGUI().loadVillianCreationPane();
+				Extender.getGUI().loadVillainCreationPane();
 			}
 		});
-		create_menu.add(villianCreateItem);
+		create_menu.add(villainCreateItem);
 
 		environmentCreateItem = new JMenuItem("Environment");
 		environmentCreateItem.addActionListener(new ActionListener(){
@@ -95,14 +95,14 @@ public class MenuPane extends JMenuBar{
 		});
 		edit_menu.add(heroEditItem);
 
-		villianEditItem = new JMenuItem("Villian");
-		villianEditItem.addActionListener(new ActionListener(){
+		villainEditItem = new JMenuItem("Villain");
+		villainEditItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Extender.getGUI().loadTableEntityEditPane(TableEntityEditPaneType.VILLIAN);
+				Extender.getGUI().loadTableEntityEditPane(TableEntityEditPaneType.VILLAIN);
 			}
 		});
-		edit_menu.add(villianEditItem);
+		edit_menu.add(villainEditItem);
 
 		environmentEditItem = new JMenuItem("Environment");
 		environmentEditItem.addActionListener(new ActionListener(){

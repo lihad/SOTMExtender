@@ -32,6 +32,8 @@ public class CloseGamePaneTableEntityCard extends JPanel{
 		this.player = player;
 
 		JPanel health_pane = new JPanel();
+		
+		if(player != null)this.add(new JLabel(player.getName()));
 
 		try {
 			this.add(new JLabel(new ImageIcon(Utility.getScaledImage(ImageIO.read(tableentity.getImageFile()),60,90))));

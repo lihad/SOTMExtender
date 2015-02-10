@@ -25,7 +25,7 @@ import lihad.SOTMExtender.Extender;
 import lihad.SOTMExtender.Objects.Entity;
 import lihad.SOTMExtender.Objects.Environment;
 import lihad.SOTMExtender.Objects.Hero;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 import lihad.SOTMExtender.Util.Utility;
 
 public class CreationPane extends JPanel{
@@ -99,15 +99,15 @@ public class CreationPane extends JPanel{
 				}
 			}
 		};
-		else if(type == CreationPaneType.VILLIAN) listener = new ActionListener(){
+		else if(type == CreationPaneType.VILLAIN) listener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(CreationPane.this instanceof VillianCreationPane){
-					Villian villian = new Villian(getName(), getDifficulty(), ((VillianCreationPane)CreationPane.this).getHealth(), getFile(), ((VillianCreationPane)CreationPane.this).isAdvanced());
-					Extender.addVillian(villian);
-					Extender.saveVillianData(villian);
-					notifySuccessCreation(villian);
-					name.setText(null); difficulty.setText(null); ((VillianCreationPane)CreationPane.this).health.setText(null);
+				if(CreationPane.this instanceof VillainCreationPane){
+					Villain villain = new Villain(getName(), getDifficulty(), ((VillainCreationPane)CreationPane.this).getHealth(), getFile(), ((VillainCreationPane)CreationPane.this).isAdvanced());
+					Extender.addVillain(villain);
+					Extender.saveVillainData(villain);
+					notifySuccessCreation(villain);
+					name.setText(null); difficulty.setText(null); ((VillainCreationPane)CreationPane.this).health.setText(null);
 				}	
 			}
 		};

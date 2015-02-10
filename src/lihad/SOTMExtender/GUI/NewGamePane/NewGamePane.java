@@ -1,145 +1,265 @@
 package lihad.SOTMExtender.GUI.NewGamePane;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 import lihad.SOTMExtender.Extender;
-import lihad.SOTMExtender.GUI.Renders.PlayerComboRender;
-import lihad.SOTMExtender.Objects.DifficultyType;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPEnvironmentChoose;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPHeroChoose;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPMakeAdvanced;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPMakeNormal;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPRandomLowLevel;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPRerollAll;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPRerollEnvironment;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPRerollHero;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPRerollVillain;
+import lihad.SOTMExtender.GUI.NewGamePane.EffectsPane.NGPVillainChoose;
+import lihad.SOTMExtender.Objects.Environment;
 import lihad.SOTMExtender.Objects.Game;
+import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.Player;
+import lihad.SOTMExtender.Objects.Potion;
+import lihad.SOTMExtender.Objects.Potion.PotionRound;
+import lihad.SOTMExtender.Objects.Villain;
 
-public class NewGamePane extends JPanel implements ActionListener{
+public class NewGamePane extends JPanel{
 
 	private static final long serialVersionUID = 1004803986986016004L;
 
-	private Set<JComboBox<Player>> player_combos;
-	private JComboBox<DifficultyType> difficulty_combo;
-	private JPanel combo_pane, grid_pane;
+	private NewGamePaneInitialPlayerInformation ngpipi;
+	private NewGamePaneInitialGroupInformation ngpigi;
+	private JPanel center;
+	JButton accept;
+
+	private Entry<Player, Potion> current_entry;
+	private Map<Player, Potion> potion_queue = new HashMap<Player, Potion>();
+
+	protected Map<Player, Hero> player_hero_map = new HashMap<Player, Hero>();
+	protected Villain villain;
+	protected Environment environment;
+	public boolean isAdvancedGame = false;
 
 	public NewGamePane(){
-		super(new BorderLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		grid_pane = new JPanel();
-		grid_pane.setLayout(new BoxLayout(grid_pane, BoxLayout.Y_AXIS));
+		ngpipi = new NewGamePaneInitialPlayerInformation(this);
+		this.add(ngpipi);
 
-		setPreferredSize(new Dimension(200,200));
-		setSize(new Dimension(200,200));
+		ngpigi = new NewGamePaneInitialGroupInformation(this);
+		this.add(ngpigi);
 
-		JPanel selection_pane = new JPanel();
-
-		player_combos = new HashSet<JComboBox<Player>>();
-
-		JRadioButton two = new JRadioButton("2");
-		two.setMnemonic(KeyEvent.VK_2);
-		two.setActionCommand("2");
-
-		JRadioButton three = new JRadioButton("3");
-		three.setMnemonic(KeyEvent.VK_3);
-		three.setActionCommand("3");
-
-		JRadioButton four = new JRadioButton("4");
-		four.setMnemonic(KeyEvent.VK_4);
-		four.setActionCommand("4");
-		four.setSelected(true);
-
-		JRadioButton five = new JRadioButton("5");
-		five.setMnemonic(KeyEvent.VK_5);
-		five.setActionCommand("5");
-
-		//Group the radio buttons.
-		ButtonGroup group = new ButtonGroup();
-		group.add(two);
-		group.add(three);
-		group.add(four);
-		group.add(five);
-
-		selection_pane.add(two);
-		selection_pane.add(three);
-		selection_pane.add(four);
-		selection_pane.add(five);
-
-		//Register a listener for the radio buttons.
-		two.addActionListener(this);
-		three.addActionListener(this);
-		four.addActionListener(this);
-		five.addActionListener(this);
-
-		grid_pane.add(selection_pane);
-
-		combo_pane = loadComboPanel(4);
-
-		difficulty_combo = new JComboBox<DifficultyType>();
-		difficulty_combo.addItem(DifficultyType.EXTREMELY_EASY);
-		difficulty_combo.addItem(DifficultyType.VERY_EASY);
-		difficulty_combo.addItem(DifficultyType.EASY);
-		difficulty_combo.addItem(DifficultyType.TYPICAL);
-		difficulty_combo.addItem(DifficultyType.DIFFICULT);
-		difficulty_combo.addItem(DifficultyType.VERY_HARD);
-		difficulty_combo.addItem(DifficultyType.EXTREMELY_HARD);
-		difficulty_combo.addItem(DifficultyType.IMPOSSIBLE);
-
-		grid_pane.add(difficulty_combo);
-
-		grid_pane.add(combo_pane);
-
-		this.add(grid_pane, BorderLayout.NORTH);
-
-		JButton accept = new JButton("accept");
-
+		accept = new JButton("accept");
+		accept.setActionCommand("one");
 		accept.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Set<Player> players = new HashSet<Player>();
-				for(JComboBox<Player> cb : player_combos) players.add(cb.getItemAt(cb.getSelectedIndex()));
-				try{
-					Game game = new Game(players, difficulty_combo.getItemAt(difficulty_combo.getSelectedIndex()));
-					Extender.addGame(game);
-					Extender.saveGameData(game);
-					Extender.getGUI().loadCloseGamePane(game);
-				}catch(IllegalArgumentException e){
-					Extender.getLogger().warning(Game.class, "Bad hero set.  Game creation Cancelled.  Try Again.");
+				if(accept.getActionCommand().equals("one")){
+					Extender.getLogger().info(NewGamePane.class, "["+ngpipi.getSelectedPlayers().size()+"] player game initialized.");
+
+					ngpipi.lockPlayerCombos();
+					ngpipi.lockPotionCombos();
+
+					for(NewGamePaneInitialPlayerLine line : NewGamePane.this.ngpipi.getPlayerLines()){
+						if(line.getPotion() != Potion.NONE){
+							Extender.getLogger().info(NewGamePane.class, "adding to potion queue: "+line.getPlayer().getName()+" "+line.getPotion().getName());
+							potion_queue.put(line.getPlayer(), line.getPotion());
+						}
+					}
+
+					step1();
+				}else if(accept.getActionCommand().equals("two")){
+					Extender.getLogger().info(NewGamePane.class, "continuing with second-round potions.");
+
+					ngpipi.lockPotionCombos();
+
+					for(NewGamePaneInitialPlayerLine line : NewGamePane.this.ngpipi.getPlayerLines()){
+						if(line.getPotion() != Potion.NONE){
+							Extender.getLogger().info(NewGamePane.class, "adding to potion queue: "+line.getPlayer().getName()+" "+line.getPotion().getName());
+							potion_queue.put(line.getPlayer(), line.getPotion());
+						}
+					}
+
+					step3();
 				}
 			}
 		});
 		this.add(accept, BorderLayout.SOUTH);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		player_combos.clear();
-		grid_pane.remove(combo_pane);
-		combo_pane = loadComboPanel(Integer.parseInt(e.getActionCommand()));
-		grid_pane.add(combo_pane);
+	protected Set<Player> getSelectedPlayers(){
+		return ngpipi.getSelectedPlayers();
+	}
+
+	protected void updateGoldLabels(){
+		this.ngpigi.updateGoldLabel();
+		this.ngpipi.updatePlayerGoldLabels();
+	}
+
+	private void loadChoosePane(Player player, Potion potion){
+		switch(potion){
+		// ONE
+		case CHOOSE_VILLAIN: loadChoosePane(new NGPVillainChoose(this, player)); break;
+		case CHOOSE_ENVIRONMENT: loadChoosePane(new NGPEnvironmentChoose(this, player)); break;
+		case CHOOSE_HERO: loadChoosePane(new NGPHeroChoose(this, player)); break;
+		case MAKE_ADVANCED: loadChoosePane(new NGPMakeAdvanced(this, player)); break;
+		case RANDOM_LOW_LEVEL: loadChoosePane(new NGPRandomLowLevel(this, player)); break;
+
+		// TWO
+		case REROLL_ALL:  loadChoosePane(new NGPRerollAll(this, player)); break;
+		case REROLL_HERO:  loadChoosePane(new NGPRerollHero(this, player)); break;
+		case REROLL_VILLAIN:  loadChoosePane(new NGPRerollVillain(this, player)); break;
+		case REROLL_ENVIRONMENT:  loadChoosePane(new NGPRerollEnvironment(this, player)); break;
+		case MAKE_NORMAL:  loadChoosePane(new NGPMakeNormal(this, player)); break;
+
+		// ALL
+		default: break;
+		}
+	}
+
+	private void loadChoosePane(JPanel pane){
+		if(center != null)this.remove(center);
+		if(accept != null)this.remove(accept);
+		this.center = pane;
+		this.add(pane, BorderLayout.CENTER);
 		Extender.getGUI().pack();
 		Extender.getGUI().repaint();
 	}
 
-	public JPanel loadComboPanel(int count){
-		JPanel pane = new JPanel(new GridLayout(count, 2));
+	private Entry<Player, Potion> popPotionQueue(){
+		try{
+			Entry<Player, Potion> entry = potion_queue.entrySet().iterator().next(); 
+			potion_queue.remove(entry.getKey());
+			return entry;
+		} catch (NoSuchElementException e){
+			return null;
+		}
+	}
 
-		for(int i = 0; i<count; i++){
-			JComboBox<Player> player_combo = new JComboBox<Player>();
-			player_combo.setRenderer(new PlayerComboRender());
-			for(Player player : Extender.getPlayers())player_combo.addItem(player);
-			pane.add(player_combo);
-			player_combos.add(player_combo);
+	public void setHero(Player player, Hero hero){
+		this.player_hero_map.put(player, hero);
+	}
+
+	public void randomLL(Player player){
+		List<Hero> lowest = new LinkedList<Hero>();
+		int level = 999;
+
+		for(Hero hero : Extender.getHeroes()){
+			if(player.getLevel(hero) < level){
+				lowest.clear();
+				level = player.getLevel(hero);
+				lowest.add(hero);
+			}else if(player.getLevel(hero)== level){
+				lowest.add(hero);
+			}
 		}
 
-		return pane;
+		Collections.shuffle(lowest);
+		setHero(player, lowest.get(0));
+	}
+
+	public void setVillain(Villain villain){
+		this.villain = villain;
+	}
+
+	public void setEnvironment(Environment environment){
+		this.environment = environment;
+	}
+
+	public void setAdvanced(boolean is){
+		if(this.villain != null && this.villain.isAdvanced() != is){
+			this.villain = Extender.getOppositeVillain(this.villain);
+		}
+		this.isAdvancedGame = is;
+	}
+
+	public boolean hasHero(Hero hero){
+		if(this.player_hero_map.containsKey(hero)) return true;
+		return false;
+	}
+
+	public void resetAll(){
+		this.player_hero_map.clear();
+		this.villain = null;
+		this.environment = null;
+	}
+
+	public void assignSlots(){
+		for(Player player : ngpipi.getSelectedPlayers()){
+			if(!player_hero_map.containsKey(player)){
+				Hero h = Extender.getHeroes().toArray(new Hero[0])[new Random().nextInt(Extender.getHeroes().size())];
+				while(this.player_hero_map.size() > 0 && this.player_hero_map.values().contains(h)) h = Extender.getHeroes().toArray(new Hero[0])[new Random().nextInt(Extender.getHeroes().size())];
+				this.player_hero_map.put(player, h);
+			}
+		}
+
+		while(this.villain == null || this.isAdvancedGame != this.villain.isAdvanced()) this.villain = Extender.getVillains().toArray(new Villain[0])[new Random().nextInt(Extender.getVillains().size())];
+		if(this.environment == null)this.environment = Extender.getEnvironments().toArray(new Environment[0])[new Random().nextInt(Extender.getEnvironments().size())];	
+	}
+
+	public void step1(){
+		current_entry = popPotionQueue();
+		if(current_entry == null){
+			step2(); return;
+		}
+
+		loadChoosePane(current_entry.getKey(), current_entry.getValue());	
+
+		Extender.getLogger().info(NewGamePane.class, "player ["+current_entry.getKey().getName()+"] is resolving ["+current_entry.getValue().getName()+"]");
+		Extender.getLogger().info(NewGamePane.class, "["+current_entry.getValue().getCost()+"G] was deducted.  leaving ["+current_entry.getKey().getName()+"] with ["+current_entry.getKey().getGold()+"G]");
+	}
+
+	public void step2(){
+		for(NewGamePaneInitialPlayerLine line : ngpipi.getPlayerLines()){
+			line.updateComboBox(PotionRound.TWO);
+		}
+		ngpipi.unlockPotionCombos();
+		if(center != null)this.remove(center);
+		if(accept != null)this.remove(accept);
+
+		assignSlots();		
+
+		this.center = new NewGamePanePreliminary(this.player_hero_map, this.villain, this.environment);
+		this.add(this.center, BorderLayout.CENTER);
+		accept.setActionCommand("two");
+		this.add(accept);
 
 	}
+
+	public void step3(){
+		current_entry = popPotionQueue();
+		if(current_entry == null){
+			step4(); return;
+		}
+
+		loadChoosePane(current_entry.getKey(), current_entry.getValue());	
+
+		Extender.getLogger().info(NewGamePane.class, "player ["+current_entry.getKey().getName()+"] is resolving ["+current_entry.getValue().getName()+"]");
+		Extender.getLogger().info(NewGamePane.class, "["+current_entry.getValue().getCost()+"G] was deducted.  leaving ["+current_entry.getKey().getName()+"] with ["+current_entry.getKey().getGold()+"G]");
+
+	}
+	
+	private void step4(){
+		Extender.getLogger().info(NewGamePane.class, "creating game!!!");
+
+		Game game = new Game(this.player_hero_map, this.villain, this.environment);
+		Extender.addGame(game);
+		Extender.saveGameData(game);
+		Extender.getGUI().loadCloseGamePane(game);
+	}
+
+
 }

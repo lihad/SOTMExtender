@@ -56,7 +56,7 @@ public class CloseGamePane extends JPanel{
 				Map<TableEntity, Object[]> data_map = new HashMap<TableEntity, Object[]>();
 				
 				for(CloseGamePaneTableEntityCard p_p : close_info.getPlayerLine().getPlayerCards()) data_map.put(close_info.getGame().getHero(p_p.getPlayer()), new Object[]{p_p.isLiving(), p_p.getHealth()});
-				data_map.put(close_info.getGame().getVillian(), new Object[]{close_info.getVillianLine().getVillianCard().isLiving(), close_info.getVillianLine().getVillianCard().getHealth()});
+				data_map.put(close_info.getGame().getVillain(), new Object[]{close_info.getVillainLine().getVillainCard().isLiving(), close_info.getVillainLine().getVillainCard().getHealth()});
 				data_map.put(close_info.getGame().getEnvironment(), new Object[]{false, 0});
 
 				close_info.getGame().complete(close_info.getStatisticsPane().isVictorious(), close_info.getStatisticsPane().getRounds(), data_map);

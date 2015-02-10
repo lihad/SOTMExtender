@@ -14,7 +14,7 @@ public class ViewGamePaneInformation extends JPanel{
 		super(new BorderLayout());
 		
 		this.add(new ViewGamePanePlayerLine(game), BorderLayout.CENTER);
-		this.add(new ViewGamePaneVillianLine(game), BorderLayout.SOUTH);
+		this.add(new ViewGamePaneVillainLine(game), BorderLayout.SOUTH);
 		this.add(new ViewGamePaneStatistics(game), BorderLayout.EAST);
 
 	}

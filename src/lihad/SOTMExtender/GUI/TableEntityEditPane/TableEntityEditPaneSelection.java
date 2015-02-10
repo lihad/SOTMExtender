@@ -8,12 +8,12 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Extender;
+import lihad.SOTMExtender.GUI.ComboBoxModels.TableEntityModel;
 import lihad.SOTMExtender.GUI.Renders.TableEntityComboRender;
 import lihad.SOTMExtender.Objects.Environment;
-import lihad.SOTMExtender.Objects.Game;
 import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.TableEntity;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 
 public class TableEntityEditPaneSelection extends JPanel{
 
@@ -25,13 +25,15 @@ public class TableEntityEditPaneSelection extends JPanel{
 	TableEntityEditPaneSelection(TableEntityEditPane pane, TableEntityEditPaneType type){
 		super(new BorderLayout());
 		this.pane = pane;
-
+		
+		//DefaultComboBoxModel model = new DefaultComboBoxModel(items);
 		te_combo = new JComboBox<TableEntity>();
 		te_combo.setRenderer(new TableEntityComboRender());
-
-		if(type == TableEntityEditPaneType.VILLIAN){
-			for(Villian villian : Extender.getVillians()){
-				te_combo.addItem(villian);
+		te_combo.setModel(new TableEntityModel());
+		
+		if(type == TableEntityEditPaneType.VILLAIN){
+			for(Villain villain : Extender.getVillains()){
+				te_combo.addItem(villain);
 			}
 		}
 		else if(type == TableEntityEditPaneType.HERO){

@@ -16,6 +16,7 @@ public class PlayerComboRender extends JLabel implements ListCellRenderer<Player
 	public Component getListCellRendererComponent(JList<? extends Player> arg0, Player entity,
 			int arg2, boolean arg3, boolean arg4) {
 		if(entity != null)this.setText(entity.getName()+" ("+entity.getFullname()+")");
+		else this.setText(" - No Player - ");
 		return this;
 	}
 }

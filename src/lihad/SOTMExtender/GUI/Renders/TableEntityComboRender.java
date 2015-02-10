@@ -7,7 +7,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import lihad.SOTMExtender.Objects.TableEntity;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 
 public class TableEntityComboRender extends JLabel implements ListCellRenderer<TableEntity> {
 
@@ -16,7 +16,7 @@ public class TableEntityComboRender extends JLabel implements ListCellRenderer<T
 	@Override
 	public Component getListCellRendererComponent(JList<? extends TableEntity> arg0, TableEntity entity,
 			int arg2, boolean arg3, boolean arg4) {
-		if(entity != null)this.setText(entity.getName()+((entity instanceof Villian && ((Villian)entity).isAdvanced()) ? " -ADV-" : "")+" ("+entity.getDifficulty()+")");
+		if(entity != null)this.setText(entity.getName()+((entity instanceof Villain && ((Villain)entity).isAdvanced()) ? " -ADV-" : "")+" ("+entity.getDifficulty()+")");
 		return this;
 	}
 

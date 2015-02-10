@@ -19,7 +19,7 @@ import lihad.SOTMExtender.Objects.Game;
 import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.Player;
 import lihad.SOTMExtender.Objects.TableEntity;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 
 public class Extender {
 
@@ -27,7 +27,7 @@ public class Extender {
 	private static String directory = "C:\\testing\\sotm";
 	private static Set<Player> players;
 	private static Set<Hero> heroes;
-	private static Set<Villian> villians;
+	private static Set<Villain> villains;
 	private static Set<Environment> environments;
 	private static Set<Game> games;
 	
@@ -47,7 +47,7 @@ public class Extender {
 
 		players = new HashSet<Player>();
 		heroes = new HashSet<Hero>();
-		villians = new HashSet<Villian>();
+		villains = new HashSet<Villain>();
 		environments = new HashSet<Environment>();		
 		games = new HashSet<Game>();		
 
@@ -59,9 +59,9 @@ public class Extender {
 		loadHeroData();
 		logger.info(Extender.class, "... Complete. Loaded "+heroes.size()+" classes."); 
 
-		logger.info(Extender.class, "Loading villian save data...");
-		loadVillianData();
-		logger.info(Extender.class, "... Complete. Loaded "+villians.size()+" classes."); 
+		logger.info(Extender.class, "Loading villain save data...");
+		loadVillainData();
+		logger.info(Extender.class, "... Complete. Loaded "+villains.size()+" classes."); 
 
 		logger.info(Extender.class, "Loading environment save data...");
 		loadEnvironmentData();
@@ -91,7 +91,7 @@ public class Extender {
 					in = new ObjectInputStream(fis);
 					Object object = in.readObject();
 					if(object instanceof Hero && filetype.equalsIgnoreCase("smh")) heroes.add((Hero) object);
-					else if(object instanceof Villian && filetype.equalsIgnoreCase("smv")) villians.add((Villian) object);
+					else if(object instanceof Villain && filetype.equalsIgnoreCase("smv")) villains.add((Villain) object);
 					else if(object instanceof Environment && filetype.equalsIgnoreCase("sme")) environments.add((Environment) object);
 					else if(object instanceof Player && filetype.equalsIgnoreCase("smp")){ players.add((Player) object);}
 					else if(object instanceof Game && filetype.equalsIgnoreCase("smg")){ games.add((Game) object);}
@@ -112,8 +112,8 @@ public class Extender {
 		loadData(directory+"\\environments\\", "sme");
 	}
 
-	private static void loadVillianData(){
-		loadData(directory+"\\villians\\", "smv");
+	private static void loadVillainData(){
+		loadData(directory+"\\villains\\", "smv");
 	}
 
 	private static void loadHeroData(){
@@ -145,8 +145,8 @@ public class Extender {
 		saveData(player, directory+"\\players\\"+player.getName()+".smp");
 	}
 
-	public static void saveVillianData(Villian villian){
-		saveData(villian, directory+"\\villians\\"+villian.getName()+(villian.isAdvanced() ? " ADV" : "")+".smv");
+	public static void saveVillainData(Villain villain){
+		saveData(villain, directory+"\\villains\\"+villain.getName()+(villain.isAdvanced() ? " ADV" : "")+".smv");
 	}
 
 	public static void saveHeroData(Hero hero){
@@ -154,7 +154,7 @@ public class Extender {
 	}
 	
 	public static void saveTableEntityData(TableEntity tableentity){
-		if(tableentity instanceof Villian) saveVillianData((Villian) tableentity);
+		if(tableentity instanceof Villain) saveVillainData((Villain) tableentity);
 		else if(tableentity instanceof Hero) saveHeroData((Hero) tableentity);
 		else if(tableentity instanceof Environment) saveEnvironmentData((Environment) tableentity);
 		else{
@@ -170,8 +170,15 @@ public class Extender {
 		return heroes;
 	}
 	
-	public static Set<Villian> getVillians(){
-		return villians;
+	public static Set<Villain> getVillains(){
+		return villains;
+	}
+	
+	public static Villain getOppositeVillain(Villain villain){
+		for(Villain v : getVillains()){
+			if(v.getName().equalsIgnoreCase(villain.getName()) && (v.isAdvanced() != villain.isAdvanced())) return v;
+		}
+		return villain;
 	}
 	
 	public static Set<Environment> getEnvironments(){
@@ -190,8 +197,8 @@ public class Extender {
 		return heroes.add(hero);
 	}
 
-	public static boolean addVillian(Villian villian){
-		return villians.add(villian);
+	public static boolean addVillain(Villain villain){
+		return villains.add(villain);
 	}
 	
 	public static boolean addPlayer(Player player){

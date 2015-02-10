@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import lihad.SOTMExtender.Objects.Player;
 import lihad.SOTMExtender.Objects.TableEntity;
 import lihad.SOTMExtender.Objects.Character;
-import lihad.SOTMExtender.Objects.Villian;
+import lihad.SOTMExtender.Objects.Villain;
 import lihad.SOTMExtender.Util.Utility;
 
 public class ViewGamePaneTableEntityCard extends JPanel{
@@ -37,8 +37,8 @@ public class ViewGamePaneTableEntityCard extends JPanel{
 			this.add(player_name);
 		}
 		
-		else if(entity instanceof Villian){
-			this.add(new JLabel((((Villian)entity).isAdvanced() ? "(*)" : "")+""+entity.getName()));
+		else if(entity instanceof Villain){
+			this.add(new JLabel((((Villain)entity).isAdvanced() ? "(*)" : "")+""+entity.getName()));
 		}
 		
 		else this.add(new JLabel(entity.getName()));
