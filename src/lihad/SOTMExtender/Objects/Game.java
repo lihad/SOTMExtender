@@ -19,6 +19,7 @@ public class Game implements Serializable{
 	private Villain villain;
 	private Environment environment;
 	private boolean iscompleted;
+	private boolean isadvanced;
 	private long timestamp;
 	private DifficultyType d_type;
 	private CompletedGameData cgdata;
@@ -54,24 +55,25 @@ public class Game implements Serializable{
 		Extender.getLogger().info(Game.class, "game "+timestamp+" has been created.  total games: "+(Extender.getGames().size()+1));
 		Extender.getLogger().info(Game.class, "-- Heroes:");
 		for(Entry<Player, Hero> entry : player_hero_map.entrySet()) Extender.getLogger().info(Game.class, "---- ("+entry.getKey().getName()+" | "+entry.getValue().getName()+")");
-		Extender.getLogger().info(Game.class, "-- Villain: "+villain.getName()+" | Advanced: "+villain.isAdvanced());
+		Extender.getLogger().info(Game.class, "-- Villain: "+villain.getName()+" | Advanced: "+isadvanced);
 		Extender.getLogger().info(Game.class, "-- Environment: "+environment.getName());
 		Extender.getLogger().info(Game.class, "-- Difficulty: "+this.getDifficultyValue()+ " | "+this.d_type.toString());
 		Extender.getLogger().info(Game.class, "-- Projected Experience Per: "+this.getExperience());
 	}
 	
-	public Game(Map<Player, Hero> map, Villain villain, Environment environment){
+	public Game(Map<Player, Hero> map, Villain villain, Environment environment, boolean isadvanced){
 		
 		this.player_hero_map = map;
 		this.villain = villain;
 		this.environment = environment;		
 		this.timestamp = System.currentTimeMillis(); iscompleted = false;
 		this.d_type = getDifficultyType();
+		this.isadvanced = isadvanced;
 		
 		Extender.getLogger().info(Game.class, "game "+timestamp+" has been created.  total games: "+(Extender.getGames().size()+1));
 		Extender.getLogger().info(Game.class, "-- Heroes:");
 		for(Entry<Player, Hero> entry : player_hero_map.entrySet()) Extender.getLogger().info(Game.class, "---- ("+entry.getKey().getName()+" | "+entry.getValue().getName()+")");
-		Extender.getLogger().info(Game.class, "-- Villain: "+villain.getName()+" | Advanced: "+villain.isAdvanced());
+		Extender.getLogger().info(Game.class, "-- Villain: "+villain.getName()+" | Advanced: "+isadvanced);
 		Extender.getLogger().info(Game.class, "-- Environment: "+environment.getName());	
 		Extender.getLogger().info(Game.class, "-- Difficulty: "+this.getDifficultyValue()+ " | "+this.d_type.toString());
 		Extender.getLogger().info(Game.class, "-- Projected Experience Per: "+this.getExperience());
@@ -108,6 +110,10 @@ public class Game implements Serializable{
 	
 	public boolean isCompleted(){
 		return this.iscompleted;
+	}
+	
+	public boolean isAdvanced(){
+		return this.isadvanced;
 	}
 	
 	public int getDifficultyValue(){

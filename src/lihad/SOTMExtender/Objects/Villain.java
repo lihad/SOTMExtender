@@ -6,18 +6,18 @@ public class Villain extends Character{
 	
 	private static final long serialVersionUID = -2416479829344299627L;
 	
-	private boolean advanced;
+	private int advanced_difficulty;
 	
-	public Villain(String name, int difficulty, int health, File file, boolean advanced) {
+	public Villain(String name, int difficulty, int health, File file, int advanced_difficulty) {
 		super(name, difficulty, health, file);
-		this.advanced = advanced;
+		this.advanced_difficulty = advanced_difficulty;
 	}
 	
-	public boolean isAdvanced(){
-		return this.advanced;
+	public int getAdvancedDifficulty(){
+		return this.advanced_difficulty;
 	}
 	
-	public void setAdvanced(boolean adv){
-		this.advanced = adv;
+	public void setAdvancedDifficulty(int adv){
+		this.advanced_difficulty = adv;
 	}
 }

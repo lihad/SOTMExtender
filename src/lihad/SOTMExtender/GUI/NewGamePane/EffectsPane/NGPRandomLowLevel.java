@@ -13,12 +13,11 @@ public class NGPRandomLowLevel extends NGPChoose{
 	private static final long serialVersionUID = -7069198067088899957L;
 	
 	private NewGamePane ngp;
-	private Player player;
 	
 	public NGPRandomLowLevel(final NewGamePane ngp, final Player player){
 		super(ngp, player, Potion.RANDOM_LOW_LEVEL, ".  a random low-level will be chosen. press 'Next' to continue.");
 		
-		this.ngp = ngp; this.player = player;
+		this.ngp = ngp;
 		
 		super.button.addActionListener(new ActionListener(){
 			@Override

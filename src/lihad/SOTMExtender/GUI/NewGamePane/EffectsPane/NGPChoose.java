@@ -41,7 +41,7 @@ public class NGPChoose extends JPanel{
 				for(Environment v : Extender.getEnvironments())combo.addItem(v);
 				break;
 			case CHOOSE_VILLAIN:
-				for(Villain v : Extender.getVillains()) if(ngp.isAdvancedGame == v.isAdvanced()) combo.addItem(v);
+				for(Villain v : Extender.getVillains())combo.addItem(v);
 				break;
 			case CHOOSE_HERO:
 				for(Hero v : Extender.getHeroes())combo.addItem(v);

@@ -8,7 +8,6 @@ import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
 import lihad.SOTMExtender.Objects.Hero;
 import lihad.SOTMExtender.Objects.Player;
 import lihad.SOTMExtender.Objects.Potion;
-import lihad.SOTMExtender.Objects.Villain;
 
 public class NGPHeroChoose extends NGPChoose{
 

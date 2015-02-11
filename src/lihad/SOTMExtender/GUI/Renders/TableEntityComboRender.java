@@ -16,7 +16,8 @@ public class TableEntityComboRender extends JLabel implements ListCellRenderer<T
 	@Override
 	public Component getListCellRendererComponent(JList<? extends TableEntity> arg0, TableEntity entity,
 			int arg2, boolean arg3, boolean arg4) {
-		if(entity != null)this.setText(entity.getName()+((entity instanceof Villain && ((Villain)entity).isAdvanced()) ? " -ADV-" : "")+" ("+entity.getDifficulty()+")");
+		if(entity != null)this.setText(entity.getName()+" ("+entity.getDifficulty()+")"+((entity instanceof Villain) ? "("+((Villain)entity).getAdvancedDifficulty()+")" : ""));
+		else this.setText(" - new - ");
 		return this;
 	}
 

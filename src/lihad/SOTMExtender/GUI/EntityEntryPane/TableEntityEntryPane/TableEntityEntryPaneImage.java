@@ -1,4 +1,4 @@
-package lihad.SOTMExtender.GUI.TableEntityEditPane;
+package lihad.SOTMExtender.GUI.EntityEntryPane.TableEntityEntryPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +17,7 @@ import lihad.SOTMExtender.Extender;
 import lihad.SOTMExtender.Objects.TableEntity;
 import lihad.SOTMExtender.Util.Utility;
 
-public class TableEntityEditPaneImage extends JPanel{
+public class TableEntityEntryPaneImage extends JPanel{
 
 	private static final long serialVersionUID = 4293551032895620773L;
 	
@@ -25,13 +25,18 @@ public class TableEntityEditPaneImage extends JPanel{
 	private JFileChooser fc;
 	private File file;
 
-	TableEntityEditPaneImage(TableEntity tableentity){
+	public TableEntityEntryPaneImage(TableEntity tableentity){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		try {
-			image_label = new JLabel(new ImageIcon(Utility.getScaledImage(ImageIO.read(tableentity.getImageFile()),152,228)));
+			this.image_label = new JLabel(new ImageIcon(Utility.getScaledImage(ImageIO.read(tableentity.getImageFile()),152,228)));
+			this.file = tableentity.getImageFile();
 		} catch (IOException e) {
-			Extender.getLogger().warning(TableEntityEditPaneImage.class, "unable to load image for "+tableentity.getName());
+			Extender.getLogger().warning(TableEntityEntryPaneImage.class, "unable to load image for "+tableentity.getName());
+		} catch (NullPointerException re) {
+			Extender.getLogger().warning(TableEntityEntryPaneImage.class, "the image is null");
+		} catch(IllegalArgumentException re){
+			Extender.getLogger().warning(TableEntityEntryPaneImage.class, "the image for "+tableentity.getName()+" is corrupt");
 		}
 		
 		if(image_label != null)this.add(image_label);
@@ -42,15 +47,16 @@ public class TableEntityEditPaneImage extends JPanel{
 		image_button.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int returnVal = fc.showOpenDialog(TableEntityEditPaneImage.this);
+				int returnVal = fc.showOpenDialog(TableEntityEntryPaneImage.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					file = fc.getSelectedFile();
 					try {
-						if(image_label != null)TableEntityEditPaneImage.this.remove(image_label);
+						Extender.getLogger().debug(TableEntityEntryPaneImage.class, "file is null");
+						if(image_label != null)TableEntityEntryPaneImage.this.remove(image_label);
 						image_label = new JLabel(new ImageIcon(Utility.getScaledImage(ImageIO.read(file),152,228)));
-						TableEntityEditPaneImage.this.add(image_label);
+						TableEntityEntryPaneImage.this.add(image_label);
 						Extender.getGUI().pack();
-						TableEntityEditPaneImage.this.repaint();
+						TableEntityEntryPaneImage.this.repaint();
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

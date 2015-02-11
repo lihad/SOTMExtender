@@ -51,6 +51,10 @@ public class Player extends Entity{
 		return this.experience.get(hero);
 	}
 	
+	public boolean hasExperience(Hero hero){
+		return this.experience.containsKey(hero);
+	}
+	
 	public String getFullname(){
 		return this.fullname;
 	}

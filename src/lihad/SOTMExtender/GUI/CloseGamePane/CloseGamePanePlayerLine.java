@@ -20,7 +20,7 @@ public class CloseGamePanePlayerLine extends JPanel{
 
 		player_cards = new HashSet<CloseGamePaneTableEntityCard>();
 		for(Player p :game.getPlayers()){
-			CloseGamePaneTableEntityCard c = new CloseGamePaneTableEntityCard(game.getHero(p), p);
+			CloseGamePaneTableEntityCard c = new CloseGamePaneTableEntityCard(game.getHero(p), p, game.isAdvanced());
 			player_cards.add(c);
 			this.add(c);
 		}

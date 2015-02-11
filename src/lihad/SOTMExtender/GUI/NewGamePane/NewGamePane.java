@@ -186,9 +186,6 @@ public class NewGamePane extends JPanel{
 	}
 
 	public void setAdvanced(boolean is){
-		if(this.villain != null && this.villain.isAdvanced() != is){
-			this.villain = Extender.getOppositeVillain(this.villain);
-		}
 		this.isAdvancedGame = is;
 	}
 
@@ -212,7 +209,7 @@ public class NewGamePane extends JPanel{
 			}
 		}
 
-		while(this.villain == null || this.isAdvancedGame != this.villain.isAdvanced()) this.villain = Extender.getVillains().toArray(new Villain[0])[new Random().nextInt(Extender.getVillains().size())];
+		while(this.villain == null)this.villain = Extender.getVillains().toArray(new Villain[0])[new Random().nextInt(Extender.getVillains().size())];
 		if(this.environment == null)this.environment = Extender.getEnvironments().toArray(new Environment[0])[new Random().nextInt(Extender.getEnvironments().size())];	
 	}
 
@@ -239,7 +236,7 @@ public class NewGamePane extends JPanel{
 
 		assignSlots();		
 
-		this.center = new NewGamePanePreliminary(this.player_hero_map, this.villain, this.environment);
+		this.center = new NewGamePanePreliminary(this.player_hero_map, this.villain, this.environment, this.isAdvancedGame);
 		this.add(this.center, BorderLayout.CENTER);
 		accept.setActionCommand("two");
 		this.add(accept, BorderLayout.SOUTH);
@@ -262,7 +259,7 @@ public class NewGamePane extends JPanel{
 	private void step4(){
 		Extender.getLogger().info(NewGamePane.class, "creating game!!!");
 
-		Game game = new Game(this.player_hero_map, this.villain, this.environment);
+		Game game = new Game(this.player_hero_map, this.villain, this.environment, this.isAdvancedGame);
 		Extender.addGame(game);
 		Extender.saveGameData(game);
 		Extender.getGUI().loadCloseGamePane(game);

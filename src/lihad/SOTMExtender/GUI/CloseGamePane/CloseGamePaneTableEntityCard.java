@@ -24,7 +24,7 @@ public class CloseGamePaneTableEntityCard extends JPanel{
 	private Player player;
 	private JCheckBox alive;
 
-	CloseGamePaneTableEntityCard(TableEntity tableentity, Player player){
+	CloseGamePaneTableEntityCard(TableEntity tableentity, Player player, boolean isadvanced){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.tableentity = tableentity;
 		this.player = player;
@@ -43,7 +43,7 @@ public class CloseGamePaneTableEntityCard extends JPanel{
 		if(tableentity instanceof Hero){
 			pane.add(new JLabel("lvl "+player.getLevel((Hero)tableentity)));
 		}else if(tableentity instanceof Villain){
-			pane.add(new JLabel(((Villain)tableentity).isAdvanced() ? "Advanced" : "Normal"));
+			pane.add(new JLabel(isadvanced ? "Advanced" : "Normal"));
 		}
 		else pane.add(new JLabel(" "));
 		

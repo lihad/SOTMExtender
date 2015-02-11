@@ -8,30 +8,21 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import lihad.SOTMExtender.GUI.CloseGamePane.CloseGamePane;
-import lihad.SOTMExtender.GUI.EntityCreationPane.EnvironmentCreationPane;
-import lihad.SOTMExtender.GUI.EntityCreationPane.HeroCreationPane;
-import lihad.SOTMExtender.GUI.EntityCreationPane.PlayerCreationPane;
-import lihad.SOTMExtender.GUI.EntityCreationPane.VillainCreationPane;
+import lihad.SOTMExtender.GUI.EntityEntryPane.EntityEntryPane;
+import lihad.SOTMExtender.GUI.EntityEntryPane.EntityEntryPaneType;
 import lihad.SOTMExtender.GUI.NewGamePane.NewGamePane;
-import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPane;
-import lihad.SOTMExtender.GUI.TableEntityEditPane.TableEntityEditPaneType;
 import lihad.SOTMExtender.GUI.ViewGamePane.ViewGamePane;
 import lihad.SOTMExtender.Objects.Game;
-import lihad.SOTMExtender.Objects.TableEntity;
 
 public class Interface extends JFrame{
 
 	private static final long serialVersionUID = 5228372618960861427L;
 	
 	private MenuPane menu_pane;
-	private HeroCreationPane hero_pane;
-	private VillainCreationPane villain_pane;
-	private EnvironmentCreationPane environment_pane;
-	private PlayerCreationPane player_pane;
 	private CloseGamePane close_game_pane;
 	private ViewGamePane view_game_pane;
 	private NewGamePane new_game_pane;
-	private TableEntityEditPane tableentity_edit_pane;
+	private EntityEntryPane entity_edit_pane;
 	
 	public Interface(){
 		this.setSize(600,400);
@@ -69,45 +60,17 @@ public class Interface extends JFrame{
 		loadPaneCenter(view_game_pane);
 	}
 	
-	public void loadPlayerCreationPane(){
+	public void loadEntityEditPane(EntityEntryPaneType type){
 		removeAllPanes();
-		player_pane = new PlayerCreationPane();
-		loadPaneCenter(player_pane);
-	}
-	
-	public void loadHeroCreationPane(){
-		removeAllPanes();
-		hero_pane = new HeroCreationPane();
-		loadPaneCenter(hero_pane);
-	}
-	
-	public void loadVillainCreationPane(){
-		removeAllPanes();
-		villain_pane = new VillainCreationPane();
-		loadPaneCenter(villain_pane);
-	}
-	
-	public void loadEnvironmentCreationPane(){
-		removeAllPanes();
-		environment_pane = new EnvironmentCreationPane();
-		loadPaneCenter(environment_pane);
-	}
-	
-	public void loadTableEntityEditPane(TableEntityEditPaneType type){
-		removeAllPanes();
-		tableentity_edit_pane = new TableEntityEditPane(type);
-		loadPaneCenter(tableentity_edit_pane);
+		entity_edit_pane = new EntityEntryPane(type);
+		loadPaneCenter(entity_edit_pane);
 	}
 	
 	public void removeAllPanes(){
-		if(player_pane != null)this.remove(player_pane);
-		if(hero_pane != null)this.remove(hero_pane);
-		if(villain_pane != null)this.remove(villain_pane);
-		if(environment_pane != null)this.remove(environment_pane);
 		if(new_game_pane != null)this.remove(new_game_pane);
 		if(close_game_pane != null)this.remove(close_game_pane);
 		if(view_game_pane != null)this.remove(view_game_pane);
-		if(tableentity_edit_pane != null)this.remove(tableentity_edit_pane);
+		if(entity_edit_pane != null)this.remove(entity_edit_pane);
 	}
 	
 	private void loadPaneCenter(JPanel pane){

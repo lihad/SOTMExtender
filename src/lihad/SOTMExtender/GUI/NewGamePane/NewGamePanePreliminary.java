@@ -16,7 +16,7 @@ public class NewGamePanePreliminary extends JPanel{
 	
 	private static final long serialVersionUID = -6754183026272184269L;
 
-	public NewGamePanePreliminary(Map<Player, Hero> hero_map, Villain villain, Environment environment){
+	public NewGamePanePreliminary(Map<Player, Hero> hero_map, Villain villain, Environment environment, boolean isadvanced){
 		super(new FlowLayout(FlowLayout.LEFT, 1, 1));
 
 		for(Entry<Player, Hero> entry : hero_map.entrySet()){
@@ -25,7 +25,7 @@ public class NewGamePanePreliminary extends JPanel{
 		
 		this.add(new NewGamePanePreliminaryTableEntityCard(null, villain));
 		this.add(new NewGamePanePreliminaryTableEntityCard(null, environment));
-		this.add(new JLabel(villain.isAdvanced() ? "is ADV" : "is NML"));
+		this.add(new JLabel(isadvanced ? "is ADV" : "is NML"));
 
 	}
 

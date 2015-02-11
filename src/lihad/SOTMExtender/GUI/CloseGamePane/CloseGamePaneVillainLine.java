@@ -15,8 +15,8 @@ public class CloseGamePaneVillainLine extends JPanel{
 	CloseGamePaneVillainLine(Game game){
 		super(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		
-		villain_card = new CloseGamePaneTableEntityCard(game.getVillain(), null);
-		environment_card = new CloseGamePaneTableEntityCard(game.getEnvironment(), null);
+		villain_card = new CloseGamePaneTableEntityCard(game.getVillain(), null, game.isAdvanced());
+		environment_card = new CloseGamePaneTableEntityCard(game.getEnvironment(), null, game.isAdvanced());
 		
 		this.add(villain_card);
 		this.add(environment_card);

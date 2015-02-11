@@ -38,7 +38,7 @@ public class ViewGamePaneTableEntityCard extends JPanel{
 		}
 		
 		else if(entity instanceof Villain){
-			this.add(new JLabel((((Villain)entity).isAdvanced() ? "(*)" : "")+""+entity.getName()));
+			this.add(new JLabel((game.isAdvanced() ? "(*)" : "")+""+entity.getName()));
 		}
 		
 		else this.add(new JLabel(entity.getName()));

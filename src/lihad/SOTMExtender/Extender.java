@@ -31,7 +31,7 @@ public class Extender {
 	private static Set<Environment> environments;
 	private static Set<Game> games;
 	
-	private static final double build = 7;
+	private static final double build = 8;
 	
 	private static int base_experience = 1000; //TODO: make this configurable
 
@@ -146,7 +146,7 @@ public class Extender {
 	}
 
 	public static void saveVillainData(Villain villain){
-		saveData(villain, directory+"\\villains\\"+villain.getName()+(villain.isAdvanced() ? " ADV" : "")+".smv");
+		saveData(villain, directory+"\\villains\\"+villain.getName()+".smv");
 	}
 
 	public static void saveHeroData(Hero hero){
@@ -172,13 +172,6 @@ public class Extender {
 	
 	public static Set<Villain> getVillains(){
 		return villains;
-	}
-	
-	public static Villain getOppositeVillain(Villain villain){
-		for(Villain v : getVillains()){
-			if(v.getName().equalsIgnoreCase(villain.getName()) && (v.isAdvanced() != villain.isAdvanced())) return v;
-		}
-		return villain;
 	}
 	
 	public static Set<Environment> getEnvironments(){
