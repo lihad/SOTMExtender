@@ -1,7 +1,5 @@
 package lihad.SOTMExtender.GUI.NewGamePane.EffectsPane;
 
-import java.awt.FlowLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,7 +46,8 @@ public class NGPChoose extends JPanel{
 			case CHOOSE_HERO:
 				for(Hero v : Extender.getHeroes())combo.addItem(v);
 				break;				
-			}	
+			default: break;
+			}
 			this.add(combo);
 		}
 		

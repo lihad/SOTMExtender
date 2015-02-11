@@ -2,6 +2,7 @@ package lihad.SOTMExtender.GUI.CloseGamePane;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import lihad.SOTMExtender.Objects.Game;
@@ -24,8 +25,15 @@ public class CloseGamePaneInformation extends JPanel{
 		cgpvl = new CloseGamePaneVillainLine(game);
 		cgps = new CloseGamePaneStatistics(game);
 		
-		this.add(cgppl, BorderLayout.CENTER);
-		this.add(cgpvl, BorderLayout.SOUTH);
+		JPanel p = new JPanel();
+		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		
+		p.add(cgppl);
+		p.add(cgpvl);
+		this.add(p, BorderLayout.CENTER);
+		
+		JPanel o = new JPanel(new BorderLayout());
+		o.add(cgps, BorderLayout.NORTH);
 		this.add(cgps, BorderLayout.EAST);
 	}
 	

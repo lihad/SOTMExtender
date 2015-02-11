@@ -54,13 +54,16 @@ public class NewGamePane extends JPanel{
 	public boolean isAdvancedGame = false;
 
 	public NewGamePane(){
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		super(new BorderLayout());
+		
+		JPanel northen = new JPanel();
+		northen.setLayout(new BoxLayout(northen, BoxLayout.Y_AXIS));
 
 		ngpipi = new NewGamePaneInitialPlayerInformation(this);
-		this.add(ngpipi);
+		northen.add(ngpipi);
 
 		ngpigi = new NewGamePaneInitialGroupInformation(this);
-		this.add(ngpigi);
+		northen.add(ngpigi);
 
 		accept = new JButton("accept");
 		accept.setActionCommand("one");
@@ -97,6 +100,7 @@ public class NewGamePane extends JPanel{
 				}
 			}
 		});
+		this.add(northen, BorderLayout.NORTH);
 		this.add(accept, BorderLayout.SOUTH);
 	}
 
@@ -133,8 +137,10 @@ public class NewGamePane extends JPanel{
 	private void loadChoosePane(JPanel pane){
 		if(center != null)this.remove(center);
 		if(accept != null)this.remove(accept);
-		this.center = pane;
-		this.add(pane, BorderLayout.CENTER);
+		JPanel p = new JPanel(new BorderLayout());
+		p.add(pane, BorderLayout.NORTH);
+		this.center = p;
+		this.add(this.center, BorderLayout.CENTER);
 		Extender.getGUI().pack();
 		Extender.getGUI().repaint();
 	}
@@ -217,7 +223,8 @@ public class NewGamePane extends JPanel{
 		}
 
 		loadChoosePane(current_entry.getKey(), current_entry.getValue());	
-
+		
+		current_entry.getKey().removeGold(current_entry.getValue().getCost());
 		Extender.getLogger().info(NewGamePane.class, "player ["+current_entry.getKey().getName()+"] is resolving ["+current_entry.getValue().getName()+"]");
 		Extender.getLogger().info(NewGamePane.class, "["+current_entry.getValue().getCost()+"G] was deducted.  leaving ["+current_entry.getKey().getName()+"] with ["+current_entry.getKey().getGold()+"G]");
 	}
@@ -235,7 +242,7 @@ public class NewGamePane extends JPanel{
 		this.center = new NewGamePanePreliminary(this.player_hero_map, this.villain, this.environment);
 		this.add(this.center, BorderLayout.CENTER);
 		accept.setActionCommand("two");
-		this.add(accept);
+		this.add(accept, BorderLayout.SOUTH);
 
 	}
 

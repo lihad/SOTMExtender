@@ -11,7 +11,7 @@ public class ViewGamePanePlayerLine extends JPanel{
 	
 	ViewGamePanePlayerLine(Game game){
 		for(Player p :game.getPlayers()){
-			this.add(new ViewGamePaneTableEntityCard(game.getHero(p), p, game.getCompletedGameData().getHitpointsAtEnd(game.getHero(p)), game.getCompletedGameData().getMVPs().contains(game.getHero(p))));
+			this.add(new ViewGamePaneTableEntityCard(game, game.getHero(p), p, (game.getHero(p).equals(game.getCompletedGameData().getAwardRecipient()) ? game.getCompletedGameData().getAward() : null)));
 		}
 	}
 

@@ -12,11 +12,9 @@ public class NewGamePaneInitialPlayerInformation extends JPanel{
 
 	private static final long serialVersionUID = -1721802297312172057L;
 
-	private NewGamePane initial;
 	private Set<NewGamePaneInitialPlayerLine> player_lines;
 
 	public NewGamePaneInitialPlayerInformation(NewGamePane initial){
-		this.initial = initial;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		player_lines = new HashSet<NewGamePaneInitialPlayerLine>();
 
@@ -59,7 +57,7 @@ public class NewGamePaneInitialPlayerInformation extends JPanel{
 	
 	protected void unlockPotionCombos(){
 		for(NewGamePaneInitialPlayerLine line : player_lines){
-			line.getPotionCombo().setEnabled(true);
+			if(line.getPlayerCombo().getSelectedItem() != null) line.getPotionCombo().setEnabled(true);
 		}
 	}
 }

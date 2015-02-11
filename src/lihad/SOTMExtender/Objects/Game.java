@@ -137,8 +137,8 @@ public class Game implements Serializable{
 		return this.cgdata;
 	}
 
-	public void complete(boolean won, int rounds, Map<TableEntity,Object[]> tableentity_stats){
-		cgdata = new CompletedGameData(this, won, rounds, tableentity_stats);
+	public void complete(boolean won, Map<TableEntity,Boolean> tableentity_stats, Award award, Hero recipient){
+		cgdata = new CompletedGameData(this, won, tableentity_stats, award, recipient);
 		this.iscompleted = true;
 	}
 	

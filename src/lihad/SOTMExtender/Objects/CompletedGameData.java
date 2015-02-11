@@ -2,107 +2,74 @@ package lihad.SOTMExtender.Objects;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import lihad.SOTMExtender.Extender;
 
 public class CompletedGameData implements Serializable{
 	
 	private static final long serialVersionUID = -1785318266248999984L;
-
-	public enum CGDataType{
-		LIVING, HP_END
-	}
 	
-	private Map<TableEntity, Map<CGDataType, Object>> entity_data;
-	private int rounds;
+	private Map<TableEntity, Boolean> living_map;
+	private Map<Hero, Integer> experience_map;
+	private Map<Hero, Integer> gold_map;
 	private boolean players_won;
 	private Game game;
+	private Award award;
+	private Hero receipt;
 	
-	public CompletedGameData(Game game, boolean players_won, int rounds, Map<TableEntity, Object[]> tableentity_stats) {
+	public CompletedGameData(Game game, boolean players_won, Map<TableEntity, Boolean> living_map, Award award, Hero receipt) {
 		this.game = game;
-		this.players_won = players_won; this.rounds = rounds;
-		// [] =	LIVING, HP_END
-		//        0       1    
+		this.players_won = players_won; this.living_map = living_map; this.award = award; this.receipt = receipt;
 		
-		entity_data = new HashMap<TableEntity, Map<CGDataType, Object>>();
-		for(Entry<TableEntity, Object[]> entry : tableentity_stats.entrySet()){
-			Map<CGDataType, Object> cg_map = new HashMap<CGDataType, Object>();
-
-			cg_map.put(CGDataType.LIVING, (Boolean)entry.getValue()[0]);
-			if(!(Boolean)entry.getValue()[0]) cg_map.put(CGDataType.HP_END, 0);
-			else cg_map.put(CGDataType.HP_END, (Integer)entry.getValue()[1]);
-			
-			entity_data.put(entry.getKey(), cg_map);
-			
-			
-		}
+		experience_map = new HashMap<Hero, Integer>();
+		gold_map = new HashMap<Hero, Integer>();
+		
 		adjustDifficulty();
-		awardExperience();
-	}
-	
-	public int getRounds(){
-		return this.rounds;
+		awardExperienceAndGold();
 	}
 	
 	public boolean isVictorious(){
 		return this.players_won;
 	}
 	
-	public boolean hasDataType(TableEntity entity, CGDataType type){
-		if(this.entity_data.get(entity).containsKey(type)) return true;
-		else return false;
-	}
-
-	public int getHitpointsAtEnd(TableEntity entity){
-		if(!hasDataType(entity, CGDataType.HP_END)) return -1;
-		return (Integer) this.entity_data.get(entity).get(CGDataType.HP_END);
+	public Award getAward(){
+		return this.award;
 	}
 	
-	public Set<Hero> getMVPs(){
-		Set<Hero> heroes = new HashSet<Hero>();
-		int score = 0;
-		
-		for(Hero h : this.game.getHeroes()){
-			if(heroes.isEmpty()){
-				heroes.add(h); score = getScore(h);
-			}else if(score < getScore(h)){
-				heroes.clear();
-				heroes.add(h);
-				score = getScore(h);
-			}else if(score == getScore(h)){
-				heroes.add(h);
-			}
-		}
-		return heroes;
-	}
-	
-	private int getScore(Hero h){
-		return ((100 * this.getHitpointsAtEnd(h))/h.getHealth());
+	public Hero getAwardRecipient(){
+		return this.receipt;
 	}
 	
 	public boolean isLiving(TableEntity entity){
-		if(!hasDataType(entity, CGDataType.LIVING)) return false;
-		return (Boolean) this.entity_data.get(entity).get(CGDataType.LIVING);
+		if(!this.living_map.containsKey(entity)) return false;
+		return this.living_map.get(entity);
 	}
 	
-	private void awardExperience(){
-		Extender.getLogger().info(Game.class, "awarding experience (base before modifiers = "+this.game.getExperience()+")");
-		
-		for(Player p : this.game.getPlayers()){
-			int experience = 0;
-			experience = this.game.getExperience();
-			if(this.getMVPs().contains(this.game.getHero(p)))experience += 50;
+	private void awardExperienceAndGold(){
+		Extender.getLogger().info(Game.class, "awarding experience and gold (base before modifiers = "+this.game.getExperience()+")");
+		for(Hero h : this.game.getHeroes()){
+			int experience = this.game.getExperience();
+			if(this.getAwardRecipient().equals(h)) experience += (50 + new Random().nextInt(50));
 			experience += new Random().nextInt(20);
-			if(!this.isLiving(this.game.getHero(p))) experience = (int) (experience*.50);
 			if(!this.isVictorious()) experience = (int) (experience*.15);
-			Extender.getLogger().info(Game.class, "__ "+p.getName()+" is awarded ["+experience+"] exp!");
-			p.addExperience(game.getHero(p), experience);
-			Extender.savePlayerData(p);
+			
+			if(!this.isLiving(h)){
+				this.game.getPlayer(h).resetExperience(h);
+				Extender.getLogger().info(Game.class, "__ "+h.getName()+" died! Experience was reset for ["+this.game.getPlayer(h).getName()+"] !");
+				experience_map.put(h, 0);
+			}else{
+				this.game.getPlayer(h).addExperience(h, experience);
+				Extender.getLogger().info(Game.class, "__ "+h.getName()+" is awarded ["+experience+"] exp!  Current level "+this.game.getPlayer(h).getLevel(h));
+				experience_map.put(h, experience);
+			}
+			
+			this.game.getPlayer(h).addGold((int)(experience*.10));
+			Extender.getLogger().info(Game.class, "__ "+h.getName()+" is awarded ["+(experience*.10)+"] gold!");
+			gold_map.put(h, (int) (experience*.10));
+			
+			Extender.savePlayerData(this.game.getPlayer(h));
 		}
 	}
 	

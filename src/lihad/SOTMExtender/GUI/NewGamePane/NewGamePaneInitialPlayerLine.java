@@ -39,6 +39,8 @@ public class NewGamePaneInitialPlayerLine  extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				NewGamePaneInitialPlayerLine.this.initial.updateGoldLabels();
+				if(player_combo.getSelectedItem() == null)setPotionLock(true);
+				else setPotionLock(false);
 			}
 		});
 		for(Player player : Extender.getPlayers())player_combo.addItem(player);
@@ -55,7 +57,12 @@ public class NewGamePaneInitialPlayerLine  extends JPanel{
 		potion_combo.setModel(new PotionModel());
 		updateComboBox(PotionRound.ONE);
 		potion_combo.setSelectedIndex(0);
+		potion_combo.setEnabled(false);
 		this.add(potion_combo);		
+	}
+	
+	public void setPotionLock(boolean isLocked){
+		this.potion_combo.setEnabled(!isLocked);
 	}
 	
 	public Player getPlayer(){
@@ -81,6 +88,7 @@ public class NewGamePaneInitialPlayerLine  extends JPanel{
 	protected void updateComboBox(PotionRound round){
 		potion_combo.removeAllItems();
 		for(Potion potion : Potion.values()) if(potion.getPotionRound() == round || potion.getPotionRound() == PotionRound.ALL)potion_combo.addItem(potion);
+		potion_combo.setSelectedIndex(0);
 	}
 
 }

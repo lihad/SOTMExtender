@@ -28,11 +28,19 @@ public class Player extends Entity{
 	}
 	
 	public void addExperience(Hero hero, int experience){
-		this.experience.put(hero, this.experience.get(hero) + experience);
+		this.experience.put(hero, (this.experience.get(hero) != null ? this.experience.get(hero) : 0) + experience);
+	}
+	
+	public void resetExperience(Hero hero){
+		this.experience.put(hero, 0);
 	}
 	
 	public void addGold(int gold){
 		this.gold += gold;
+	}
+	
+	public void removeGold(int gold){
+		this.gold -= gold;
 	}
 	
 	public int getGold(){

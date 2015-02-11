@@ -28,7 +28,7 @@ public class Character extends TableEntity{
 		int count = 0;
 		for(Game game : Extender.getGames()){
 			if(this instanceof Villain && game.isCompleted() && game.getCompletedGameData().isVictorious())  count++;
-			else if(this instanceof Hero && game.isCompleted() && game.getCompletedGameData().getHitpointsAtEnd(this) == 0)  count++;
+			else if(this instanceof Hero && game.isCompleted() && !game.getCompletedGameData().isLiving(this))  count++;
 		}
 		return count;
 	}

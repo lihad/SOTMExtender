@@ -1,7 +1,6 @@
 package lihad.SOTMExtender.GUI.CloseGamePane;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -23,11 +22,12 @@ public class CloseGamePane extends JPanel{
 	protected JButton button;
 	private JComboBox<Game> game_combo;
 	
+	protected CloseGamePaneAward awardpane;
 	private CloseGamePaneInformation close_info;
 
 	public CloseGamePane(Game g){
 		this.setLayout(new BorderLayout());
-		
+
 		game_combo = new JComboBox<Game>();
 		game_combo.setRenderer(new GameComboRender());
 
@@ -50,23 +50,34 @@ public class CloseGamePane extends JPanel{
 		}
 
 		button = new JButton("close");
+		button.setActionCommand("first");
 		button.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Map<TableEntity, Object[]> data_map = new HashMap<TableEntity, Object[]>();
-				
-				for(CloseGamePaneTableEntityCard p_p : close_info.getPlayerLine().getPlayerCards()) data_map.put(close_info.getGame().getHero(p_p.getPlayer()), new Object[]{p_p.isLiving(), p_p.getHealth()});
-				data_map.put(close_info.getGame().getVillain(), new Object[]{close_info.getVillainLine().getVillainCard().isLiving(), close_info.getVillainLine().getVillainCard().getHealth()});
-				data_map.put(close_info.getGame().getEnvironment(), new Object[]{false, 0});
+				if(button.getActionCommand().equals("first")){
+					CloseGamePane.this.remove(game_combo);
+					awardpane = new CloseGamePaneAward(game_combo.getItemAt(game_combo.getSelectedIndex()));
+					CloseGamePane.this.add(awardpane);
+					Extender.getGUI().pack();
+					CloseGamePane.this.repaint();
 
-				close_info.getGame().complete(close_info.getStatisticsPane().isVictorious(), close_info.getStatisticsPane().getRounds(), data_map);
-				Extender.saveGameData(close_info.getGame());
-				Extender.getGUI().loadViewGamePane(close_info.getGame());
+					button.setActionCommand("second");
+				}else if(button.getActionCommand().equals("second")){
+					Map<TableEntity, Boolean> data_map = new HashMap<TableEntity, Boolean>();
+
+					for(CloseGamePaneTableEntityCard p_p : close_info.getPlayerLine().getPlayerCards()) data_map.put(close_info.getGame().getHero(p_p.getPlayer()), p_p.isAlive());
+					data_map.put(close_info.getGame().getVillain(), close_info.getVillainLine().getVillainCard().isAlive());
+					data_map.put(close_info.getGame().getEnvironment(), false);
+
+					close_info.getGame().complete(close_info.getStatisticsPane().isVictorious(), data_map, awardpane.getAward(), awardpane.getRecipient());
+					Extender.saveGameData(close_info.getGame());
+					Extender.getGUI().loadViewGamePane(close_info.getGame());
+				}
 			}
 		});
 		this.add(button, BorderLayout.SOUTH);
 	}
-	
+
 	private void loadClosePaneInformation(Game game){
 		if(close_info != null)this.remove(close_info);
 		close_info = new CloseGamePaneInformation(game);
